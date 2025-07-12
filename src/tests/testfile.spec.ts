@@ -33,13 +33,14 @@ test('gdgdg', async ({ page }) => {
 function validateDetails(
     name: string,
     details?: {
-        id: number;
-        password: string;
-        orgId: number;
-        message: string;
+        id?: number;
+        password?: string;
+        orgId?: number;
+        message?: string;
     }
 ): void {
     // console.log(`${details?.id}-${details?.password}-${details?.orgId}-${details?.message}`);
+    name;
     details?.id;
     details?.message;
     details?.orgId;

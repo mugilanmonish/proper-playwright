@@ -18,7 +18,7 @@ export default [
             '@typescript-eslint/no-floating-promises': 'error',
             '@typescript-eslint/await-thenable': 'error',
             'no-undef': 'off',
-            'no-unused-vars': 'error',
+            'no-unused-vars': ['error', { args: 'all' }],
             'no-console': 'warn',
             'prefer-const': 'error',
             'no-empty': ['error', { allowEmptyCatch: false }],
