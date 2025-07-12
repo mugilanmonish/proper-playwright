@@ -39,7 +39,7 @@ function validateDetails(
         message?: string;
     }
 ): void {
-    // console.log(`${details?.id}-${details?.password}-${details?.orgId}-${details?.message}`);
+    // consol e.log(`${details?.id}-${details?.password}-${details?.orgId}-${details?.message}`);
     name;
     details?.id;
     details?.message;
