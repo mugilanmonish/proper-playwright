@@ -9,11 +9,10 @@ import { test } from '@playwright/test';
 // 	const a = {
 // 		person: { name: 'mugi', phone: 7708084971 },
 // 		company: { cName: 'Jil', cPhone: 98765, cAddress: 'Abc street' }
-// 	const b = 10;
 // });
 
 test('gdgdg', async ({ page }) => {
-    await page.goto('dgdg');
+    page.goto('dgdg');
     page.url();
     const a = 10;
     await page.locator(a.toString()).click();

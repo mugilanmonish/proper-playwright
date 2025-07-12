@@ -166,7 +166,7 @@ bouncing_ball
 # Run lint-staged with loading animation
 echo -e "${GREEN}🔍 Running lint-staged checks:${NC}"
 npx lint-staged --quiet &
-LINT_PID=$!
+LINT_EXIT_CODE=$?
 
 # Show spinner while lint-staged runs
 spinner $LINT_PID
@@ -181,7 +181,7 @@ if [ $LINT_EXIT_CODE -eq 0 ]; then
     echo -e "${GREEN}"
     echo "    🎉 🎊 🎈 🎆 🎇    "
     echo "   ╔════════════════╗   "
-    echo "   ║   COMMIT READY ║   "
+    echo "   ║  COMMIT READY  ║   "
     echo "   ╚════════════════╝   "
     echo "    🎉 🎊 🎈 🎆 🎇    "
     echo -e "${NC}"
@@ -202,7 +202,7 @@ else
     echo  -e "${RED}"
     echo "    ⚠️  🚨 ❌ 🚨 ⚠️   "
     echo "   ╔════════════════╗   "
-    echo "   ║  COMMIT BLOCKED║   "
+    echo "   ║ COMMIT BLOCKED ║   "
     echo "   ╚════════════════╝   "
     echo "    ⚠️  🚨 ❌ 🚨 ⚠️   "
     echo  -e "${NC}"
@@ -212,5 +212,5 @@ fi
 
 # Final flourish
 echo -e "${PURPLE}╔══════════════════════════════════════════════════════════════╗${NC}"
-echo -e "${PURPLE}║                 🎯 COMMIT PROCESS COMPLETE 🎯                ║${NC}"
+echo -e "${PURPLE}║                 🎯 COMMIT PROCESS COMPLETE 🎯               ║${NC}"
 echo -e "${PURPLE}╚══════════════════════════════════════════════════════════════╝${NC}"
