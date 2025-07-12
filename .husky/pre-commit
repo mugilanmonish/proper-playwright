@@ -185,7 +185,6 @@ if [ $LINT_EXIT_CODE -eq 0 ]; then
     echo "    🎉 🎊 🎈 🎆 🎇    "
     echo -e "${NC}"
     
-    # Pulsing success message
     echo -e "${GREEN}"
     pulsing_dots "Finalizing commit" 2
     echo -e "${NC}"
