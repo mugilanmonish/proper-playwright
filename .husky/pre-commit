@@ -145,23 +145,23 @@ matrix_loading() {
 }
 
 # Main animation sequence
-echo "${PURPLE}╔══════════════════════════════════════════════════════════════╗${NC}"
-echo "${PURPLE}║                    🚀 PRE-COMMIT ENGAGED 🚀                  ║${NC}"
-echo "${PURPLE}╚══════════════════════════════════════════════════════════════╝${NC}"
+echo -e "${PURPLE}╔══════════════════════════════════════════════════════════════╗${NC}"
+echo -e "${PURPLE}║                    🚀 PRE-COMMIT ENGAGED 🚀                  ║${NC}"
+echo -e "${PURPLE}╚══════════════════════════════════════════════════════════════╝${NC}"
 
 # Typewriter intro
 typewriter "${CYAN}Initializing code quality checks..." 0.05
 
 # Progress bar
-echo "${YELLOW}Setting up environment:${NC}"
+echo -e "${YELLOW}Setting up environment:${NC}"
 progress_bar 1
 
 # Bouncing ball for lint-staged
-echo "${BLUE}🎯 Targeting staged files:${NC}"
+echo -e "${BLUE}🎯 Targeting staged files:${NC}"
 bouncing_ball
 
 # Run lint-staged with loading animation
-echo "${GREEN}🔍 Running lint-staged checks:${NC}"
+echo -e "${GREEN}🔍 Running lint-staged checks:${NC}"
 npx lint-staged --quiet &
 LINT_PID=$!
 
@@ -172,10 +172,10 @@ LINT_EXIT_CODE=$?
 
 # Success or failure animation
 if [ $LINT_EXIT_CODE -eq 0 ]; then
-    echo "${GREEN}✨ SUCCESS! All checks passed! ✨${NC}"
+    echo -e "${GREEN}✨ SUCCESS! All checks passed! ✨${NC}"
     
     # Victory animation
-    echo "${GREEN}"
+    echo -e "${GREEN}"
     echo "    🎉 🎊 🎈 🎆 🎇    "
     echo "   ╔════════════════╗   "
     echo "   ║   COMMIT READY  ║   "
@@ -186,15 +186,15 @@ if [ $LINT_EXIT_CODE -eq 0 ]; then
     # Pulsing success message
     pulsing_dots "${GREEN}Finalizing commit" 2
     
-    echo "${GREEN}🚀 Code quality: EXCELLENT 🚀${NC}"
-    echo "${GREEN}📝 Formatting: PERFECT 📝${NC}"
-    echo "${GREEN}🎯 Ready for deployment! 🎯${NC}"
+    echo -e "${GREEN}🚀 Code quality: EXCELLENT 🚀${NC}"
+    echo -e "${GREEN}📝 Formatting: PERFECT 📝${NC}"
+    echo -e "${GREEN}🎯 Ready for deployment! 🎯${NC}"
     
 else
-    echo "${RED}❌ CHECKS FAILED! Please fix the issues above.${NC}"
+    echo -e "${RED}❌ CHECKS FAILED! Please fix the issues above.${NC}"
     
     # Failure animation
-    echo "${RED}"
+    echo  -e "${RED}"
     echo "    ⚠️  🚨 ❌ 🚨 ⚠️     "
     echo "   ╔════════════════╗   "
     echo "   ║  COMMIT BLOCKED ║   "
@@ -206,6 +206,6 @@ else
 fi
 
 # Final flourish
-echo "${PURPLE}╔══════════════════════════════════════════════════════════════╗${NC}"
-echo "${PURPLE}║                 🎯 COMMIT PROCESS COMPLETE 🎯                ║${NC}"
-echo "${PURPLE}╚══════════════════════════════════════════════════════════════╝${NC}"
+echo -e "${PURPLE}╔══════════════════════════════════════════════════════════════╗${NC}"
+echo -e "${PURPLE}║                 🎯 COMMIT PROCESS COMPLETE 🎯                ║${NC}"
+echo -e "${PURPLE}╚══════════════════════════════════════════════════════════════╝${NC}"
