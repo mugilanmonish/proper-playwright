@@ -19,7 +19,6 @@ test('gdgdg', async ({ page }) => {
     await page.goto('dgdg');
     page.url();
     const a = 10;
-    const b = 5;
     await page.locator(a.toString()).click();
 
     const obj = {
@@ -40,7 +39,7 @@ function validateDetails(
         message: string;
     }
 ): void {
-    console.log(`${details?.id}-${details?.password}-${details?.orgId}-${details?.message}`);
+    // console.log(`${details?.id}-${details?.password}-${details?.orgId}-${details?.message}`);
     details?.id;
     details?.message;
     details?.orgId;

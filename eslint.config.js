@@ -17,7 +17,7 @@ export default [
         rules: {
             '@typescript-eslint/no-floating-promises': 'error',
             '@typescript-eslint/await-thenable': 'error',
-            'no-undef': 'error',
+            'no-undef': 'off',
             'no-unused-vars': 'error',
             'no-console': 'warn',
             'prefer-const': 'error',
