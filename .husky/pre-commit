@@ -150,7 +150,10 @@ echo -e "${PURPLE}║                    🚀 PRE-COMMIT ENGAGED 🚀           
 echo -e "${PURPLE}╚══════════════════════════════════════════════════════════════╝${NC}"
 
 # Typewriter intro
-typewriter "${CYAN}Initializing code quality checks..." 0.05
+# Typewriter intro
+echo -e "${CYAN}"
+typewriter "Initializing code quality checks..." 0.05
+echo -e "${NC}"
 
 # Progress bar
 echo -e "${YELLOW}Setting up environment:${NC}"
@@ -178,13 +181,15 @@ if [ $LINT_EXIT_CODE -eq 0 ]; then
     echo -e "${GREEN}"
     echo "    🎉 🎊 🎈 🎆 🎇    "
     echo "   ╔════════════════╗   "
-    echo "   ║   COMMIT READY  ║   "
+    echo "   ║   COMMIT READY ║   "
     echo "   ╚════════════════╝   "
     echo "    🎉 🎊 🎈 🎆 🎇    "
-    echo "${NC}"
+    echo -e "${NC}"
     
     # Pulsing success message
-    pulsing_dots "${GREEN}Finalizing commit" 2
+    echo -e "${GREEN}"
+    pulsing_dots "Finalizing commit" 2
+    echo -e "${NC}"
     
     echo -e "${GREEN}🚀 Code quality: EXCELLENT 🚀${NC}"
     echo -e "${GREEN}📝 Formatting: PERFECT 📝${NC}"
@@ -195,12 +200,12 @@ else
     
     # Failure animation
     echo  -e "${RED}"
-    echo "    ⚠️  🚨 ❌ 🚨 ⚠️     "
+    echo "    ⚠️  🚨 ❌ 🚨 ⚠️   "
     echo "   ╔════════════════╗   "
-    echo "   ║  COMMIT BLOCKED ║   "
+    echo "   ║  COMMIT BLOCKED║   "
     echo "   ╚════════════════╝   "
-    echo "    ⚠️  🚨 ❌ 🚨 ⚠️     "
-    echo "${NC}"
+    echo "    ⚠️  🚨 ❌ 🚨 ⚠️   "
+    echo  -e "${NC}"
     
     exit 1
 fi

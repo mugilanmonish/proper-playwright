@@ -10,8 +10,6 @@ import { test } from '@playwright/test';
 // 		person: { name: 'mugi', phone: 7708084971 },
 // 		company: { cName: 'Jil', cPhone: 98765, cAddress: 'Abc street' }
 // 	const b = 10;
-// 	console.log(b);
-// 	console.log(a);
 // });
 
 test('gdgdg', async ({ page }) => {
