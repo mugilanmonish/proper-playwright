@@ -1,6 +1,3 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
 echo "🔍 Pre-commit hook is running..."
 npx lint-staged
 echo "✅ Pre-commit hook completed"
