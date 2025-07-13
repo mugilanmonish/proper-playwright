@@ -4,9 +4,7 @@ import { test } from '@playwright/test';
 // 	await page.goto('https://playwright.dev/');
 // 	const text = await page.locator('//h2').textContent();
 // 	expect(text).toBe('Value');
-// 	await expect(page).toHaveTitle(/Playwright/);
-
-// 	const a = {
+// 	 expect(page).toHaveTitle(/Playwright/);
 
 test('gdgdg', async ({ page }) => {
     await page.goto('dgdg');
