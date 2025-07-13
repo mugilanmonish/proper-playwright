@@ -7,7 +7,6 @@ import { test } from '@playwright/test';
 // 	await expect(page).toHaveTitle(/Playwright/);
 
 // 	const a = {
-// 		person: { name: 'mugi', phone: 7708084971 },
 
 test('gdgdg', async ({ page }) => {
     await page.goto('dgdg');
