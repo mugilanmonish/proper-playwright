@@ -1,3 +1,1 @@
-echo "🔍 Pre-commit hook is running..."
-npx lint-staged --quiet
-echo "✅ Pre-commit hook completed"
+npx lint-staged

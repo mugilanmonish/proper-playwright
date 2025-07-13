@@ -19,9 +19,6 @@
             "prettier --write"
         ]
     },
-    "lint-staged-config": {
-        "verbose": false
-    },
     "keywords": [],
     "author": "Mugilan R",
     "license": "ISC",
