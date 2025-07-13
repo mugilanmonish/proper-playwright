@@ -3,7 +3,6 @@ import { test } from '@playwright/test';
 // test('should display the correct page title', async ({ page }) => {
 // 	await page.goto('https://playwright.dev/');
 // 	const text = await page.locator('//h2').textContent();
-// 	expect(text).toBe('Value');
 
 test('gdgdg', async ({ page }) => {
     await page.goto('dgdg');
