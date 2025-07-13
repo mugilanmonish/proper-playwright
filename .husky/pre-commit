@@ -1,1 +1,1 @@
-npx lint-staged --quite
+npx lint-staged --silent
