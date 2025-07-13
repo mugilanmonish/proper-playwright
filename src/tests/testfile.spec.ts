@@ -10,13 +10,13 @@ test('gdgdg', async ({ page }) => {
     const a = 10;
     await page.locator(a.toString()).click();
 
-    const obj = {
-        id: 123,
-        password: 'mugilan@1',
-        orgId: 11,
-        message: 'Testing data'
-    };
-    validateDetails('mugi', obj);
+    // const obj = {
+    //     id: 123,
+    //     password: 'mugilan@1',
+    //     orgId: 11,
+    //     message: 'Testing data'
+    // };
+    validateDetails('mugi', { password: 'hello', orgId: 111 });
 });
 
 function validateDetails(
