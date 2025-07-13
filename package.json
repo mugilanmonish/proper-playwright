@@ -4,15 +4,15 @@
     "type": "module",
     "main": "index.js",
     "scripts": {
-        "lint": "eslint \"src/**/*.ts\"",
-        "lint:fix": "eslint \"src/**/*.ts\" --fix",
+        "lint": "eslint \"src/**/*.ts\" --format=codeframe",
+        "lint:fix": "eslint \"src/**/*.ts\" --fix --format=codeframe",
         "format": "prettier --write .",
         "check-format": "prettier --check .",
         "prepare": "husky"
     },
     "lint-staged": {
         "*.{ts,js}": [
-            "eslint --fix",
+            "eslint --fix --format=codeframe",
             "prettier --write"
         ],
         "*.{json,md,yml,yaml}": [
@@ -28,6 +28,8 @@
         "@playwright/test": "^1.53.2",
         "@types/node": "^24.0.10",
         "eslint": "^9.30.1",
+        "eslint-formatter-codeframe": "^7.32.1",
+        "eslint-formatter-pretty": "^6.0.1",
         "eslint-plugin": "^1.0.1",
         "husky": "^9.1.7",
         "lint-staged": "^16.1.2",
