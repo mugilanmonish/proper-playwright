@@ -1,6 +1,6 @@
 import WebActions from './webActions';
 import { expect } from '@playwright/test';
-import type * as WebAssertionsTypes from 'types/customTypes/webAssertions.types';
+import type * as WebAssertionsTypes from 'interfaces/webAssertions.interface';
 
 export class WebAssertions extends WebActions {
     async validateText(params: WebAssertionsTypes.ValidateTextParams): Promise<void> {
