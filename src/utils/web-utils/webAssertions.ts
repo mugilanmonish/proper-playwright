@@ -1,4 +1,3 @@
-import { logStep } from '@utils/common/allureUtility';
 import WebActions from './webActions';
 import { expect } from '@playwright/test';
 import type * as WebAssertionsTypes from 'types/customTypes/webAssertions.types';

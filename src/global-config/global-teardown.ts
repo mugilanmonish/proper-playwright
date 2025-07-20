@@ -11,8 +11,8 @@ const __dirname = path.dirname(__filename);
 export default function globalTeardown(): void {
     const timestamp = getFormattedTimestamp();
 
-    const reportDir = path.join(__dirname, '../../Report');
-    const outputHtmlFile = path.join(reportDir, `Report-${timestamp}.html`);
+    const reportDir = path.join(__dirname, '../../report');
+    const outputHtmlFile = path.join(reportDir, `report-${timestamp}.html`);
     const tempDir = path.join(__dirname, '../../.temp-allure');
 
     // Make sure folders exist
@@ -27,7 +27,7 @@ export default function globalTeardown(): void {
 
         if (fs.existsSync(generatedHtml)) {
             fs.copyFileSync(generatedHtml, outputHtmlFile);
-            console.log(`Report Generated: ${outputHtmlFile}`);
+            console.log(`report Generated: ${outputHtmlFile}`);
         } else {
             console.error('❌ index.html not found in temp output.');
         }
@@ -35,6 +35,6 @@ export default function globalTeardown(): void {
         // Clean up temp folder
         fs.rmSync(tempDir, { recursive: true, force: true });
     } catch (err) {
-        console.error('❌ Failed to generate Allure report', err);
+        console.error('❌ Failed to generate Allure Report', err);
     }
 }
