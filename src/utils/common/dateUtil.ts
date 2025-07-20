@@ -21,7 +21,7 @@ export function getFormattedTimestamp(): string {
         .toLocaleTimeString('en-US', {
             hour: '2-digit',
             minute: '2-digit',
-            hour12: true
+            hour12: false
         })
         .replace(':', '_'); // replace : with _ to be file-safe
 
