@@ -1,6 +1,6 @@
 import WebActions from '@utils/web-utils/webActions';
-import { test } from '../fixtures/base.fixture';
-import { expect } from '@playwright/test';
+import { test, expect } from '@playwright/test';
+import { logStep } from '@utils/common/allureUtility';
 
 test('Demo', async ({ page }) => {
     const webActions = new WebActions();
@@ -14,7 +14,7 @@ test('Demo', async ({ page }) => {
 
     await webActions.hoverAndClick('myntra insider link', page.locator("//div[text()='Myntra Insider']"));
 
-    await logStep('Validating myntra insider url', () =>
-        expect(page.url(), 'Validating Myntra insider url').toContain('myntrainsider')
-    );
+    await logStep('Validating myntra insider url', () => {
+        expect(page.url(), 'Validating Myntra insider url').toContain('myntrainsider');
+    });
 });

@@ -1,15 +1,13 @@
 /**
- * Returns the current date and time formatted as a string suitable for filenames.
+ * Returns the current date and time as a formatted string.
  *
- * The format is: `DD-Month-YYYY-HH_MMAM/PM` (e.g., `05-July-2024-09_15AM`).
- * - Day is zero-padded to two digits.
+ * Format: DD-Month-YYYY-HH_MM (e.g., "20-July-2025-14_30")
+ * - Day is zero-padded to 2 digits.
  * - Month is the full month name (e.g., "July").
- * - Year is four digits.
- * - Time is in 12-hour format with hours and minutes, separated by an underscore, and suffixed with AM/PM.
+ * - Year is 4 digits.
+ * - Time is in 24-hour format, with hours and minutes separated by an underscore.
  *
  * @returns {string} The formatted timestamp string.
- *
- * @lastModified 19-07-2025
  */
 export function getFormattedTimestamp(): string {
     const now = new Date();

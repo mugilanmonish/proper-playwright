@@ -1,5 +1,5 @@
 import type { Locator } from '@playwright/test';
-// import { logStep } from '@utils/common/allureUtility';
+import { logStep } from '@utils/common/allureUtility';
 
 class WebActions {
     async click(elementName: string, selector: Locator): Promise<void> {
