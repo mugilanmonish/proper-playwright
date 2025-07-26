@@ -14,7 +14,8 @@
             "@utils/*": ["utils/*"],
             "@selectors/*": ["pages/selectors/*"],
             "@actions/*": ["pages/actions/*"],
-            "@basePage/*": ["pages/basePage/*"]
+            "@basePage/*": ["pages/basePage/*"],
+            "@fixtures/*": ["fixtures/*"]
         }
     },
     "include": ["src/**/*.ts", "playwright.config.ts"],

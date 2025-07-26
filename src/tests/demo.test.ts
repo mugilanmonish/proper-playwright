@@ -1,7 +1,7 @@
-import { test } from '../fixtures/fixture';
+import { test } from '@fixtures/allPageFixture';
 
-test('Demo Script', async ({ factory }) => {
+test('Demo Script', async ({ pages }) => {
     test.slow();
-    await factory.headerActions.clickLoginButton();
-    await factory.loginActions.loginToShopper('mugilanrboom@gmail.com', 'Mugilanr@1');
+    await pages.headerActions.clickLoginButton();
+    await pages.loginActions.loginToShopper('mugilanrboom@gmail.com', 'Mugilanr@1');
 });
