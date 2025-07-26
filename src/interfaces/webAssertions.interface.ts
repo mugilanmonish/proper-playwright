@@ -9,6 +9,7 @@ export interface ValidateTextParams {
 export interface ValidateVisibility {
     elementName: string;
     selector: Locator;
+    isVisible?: boolean;
 }
 
 export interface ValidateLength {
@@ -17,8 +18,8 @@ export interface ValidateLength {
     length: Locator;
 }
 
-export interface ValidateObject {
+export interface ValidateArray {
     elementName: string;
     selector: Locator;
-    expectedObj: object;
+    expectedArray: string[];
 }

@@ -11,7 +11,10 @@
         "forceConsistentCasingInFileNames": true,
         "baseUrl": "./src",
         "paths": {
-            "@utils/*": ["utils/*"]
+            "@utils/*": ["utils/*"],
+            "@selectors/*": ["pages/selectors/*"],
+            "@actions/*": ["pages/actions/*"],
+            "@basePage/*": ["pages/basePage/*"]
         }
     },
     "include": ["src/**/*.ts", "playwright.config.ts"],

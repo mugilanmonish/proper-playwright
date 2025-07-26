@@ -34,8 +34,8 @@ export default [
             ],
             '@typescript-eslint/consistent-type-imports': 'error',
             '@typescript-eslint/require-await': 'error',
+            '@typescript-eslint/consistent-type-definitions': 'off',
             '@typescript-eslint/prefer-optional-chain': 'error',
-            // '@typescript-eslint/ban-types': 'error',
             '@typescript-eslint/no-unnecessary-type-assertion': 'warn',
             '@typescript-eslint/explicit-module-boundary-types': 'warn'
         }

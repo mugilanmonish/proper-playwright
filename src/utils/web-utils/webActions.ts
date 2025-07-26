@@ -1,7 +1,17 @@
-import type { Locator } from '@playwright/test';
+import type { Locator, Page } from '@playwright/test';
 import { logStep } from '@utils/common/allureUtility';
 
-class WebActions {
+export class WebActions {
+    protected page: Page;
+    constructor(page: Page) {
+        this.page = page;
+    }
+    async goTo(url: string): Promise<void> {
+        await logStep(`Navigate to Shopperstack`, async () => {
+            await this.page.goto(url);
+        });
+    }
+
     async click(elementName: string, selector: Locator): Promise<void> {
         await logStep(`Clicked on ${elementName}`, async () => {
             await selector.click();
@@ -14,11 +24,14 @@ class WebActions {
         });
     }
 
-    async textContent(elementName: string, selector: Locator): Promise<string | null> {
-        return await logStep(`Get text from ${elementName}`, async () => {
-            const text = await selector.textContent();
-            return text?.trim() ?? null;
-        });
+    async textContent(selector: Locator): Promise<string | null> {
+        const text = await selector.textContent();
+        return text?.trim() ?? null;
+    }
+
+    async allTextContents(selector: Locator): Promise<string[] | null> {
+        const allText = await selector.allTextContents();
+        return allText;
     }
 
     async hover(elementName: string, selector: Locator): Promise<void> {
@@ -28,8 +41,10 @@ class WebActions {
     }
 
     async hoverAndClick(elementName: string, selector: Locator): Promise<void> {
-        await this.hover(elementName, selector);
-        await this.click(elementName, selector);
+        await logStep(`Hover and Click on ${elementName}`, async () => {
+            await this.hover(elementName, selector);
+            await this.click(elementName, selector);
+        });
     }
 }
 

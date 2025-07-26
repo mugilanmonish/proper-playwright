@@ -30,8 +30,13 @@ export default defineConfig({
         ['./src/utils/common/customAllureRepoter.ts', { detail: false, outputFolder: 'allure-results' }],
         ['list']
     ],
-    /* Shared settings for all the projects below. See https://playw    right.dev/docs/api/class-testoptions. */
+    timeout: 60000,
+    expect: {
+        timeout: 15000
+    },
+    /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
     use: {
+        baseURL: 'https://www.shoppersstack.com',
         ignoreHTTPSErrors: true,
         viewport: { width: 1280, height: 720 },
         screenshot: 'only-on-failure',
