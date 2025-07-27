@@ -12,6 +12,13 @@ export class WebActions {
         });
     }
 
+    /**
+     * Clicks on the specified web element using the provided selector.
+     *
+     * @param elementName - A descriptive name for the element to be clicked, used for logging purposes.
+     * @param selector - The Playwright Locator representing the element to click.
+     * @returns A promise that resolves when the click action is complete.
+     */
     async click(elementName: string, selector: Locator): Promise<void> {
         await logStep(`Clicked on ${elementName}`, async () => {
             await selector.click();

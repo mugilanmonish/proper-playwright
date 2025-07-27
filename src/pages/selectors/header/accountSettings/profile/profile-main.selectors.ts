@@ -1,5 +1,5 @@
 import type { Page, Locator } from '@playwright/test';
-import type { AllProfiles } from 'types/customTypes/accountSettingTypes';
+import type { AllProfiles } from 'types/myProfilePage.types';
 
 export class ProfileMainSelector {
     constructor(private page: Page) {

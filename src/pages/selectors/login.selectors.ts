@@ -5,6 +5,8 @@ export class LoginSelectors {
         this.page = page;
     }
 
+    accessSpecificLoginButton = (role: string): Locator => this.page.locator('button', { hasText: role });
+
     // static locator
     usernameInput: Locator = this.page.locator('#Email');
     passwordInput: Locator = this.page.locator('#Password');
