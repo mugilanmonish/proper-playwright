@@ -20,6 +20,9 @@ export class BasePage {
      * @returns {Promise<void>} A promise that resolves when the navigation is complete.
      */
     async launchTheApp(): Promise<void> {
-        await this.webActions.goTo('/');
+        // Import your test data file at the top of the file, e.g.:
+        // import { testData } from '@test-data/testData';
+        // Then use the URL from testData here:
+        // await this.webActions.goTo(testData.url);
     }
 }
