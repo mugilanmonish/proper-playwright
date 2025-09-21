@@ -6,9 +6,23 @@ type Fixtures = {
 };
 
 export const test = base.extend<Fixtures>({
-    pages: async ({ page }, use) => {
+    pages: async ({ browser }, use) => {
+        const context = await browser.newContext({
+            viewport: { width: 1280, height: 720 },
+            permissions: ['clipboard-read']
+            // storageState: '.storageState.json'
+        });
+        const page = await context.newPage();
+
         const factory = new PageObjectFactory(page);
-        await use(factory);
+        try {
+            await use(factory);
+        } catch (error) {
+            console.error('Error during page fixture setup:', error);
+        } finally {
+            await page.close();
+            await context.close();
+        }
     }
 });
 
