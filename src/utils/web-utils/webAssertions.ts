@@ -6,7 +6,6 @@ import type * as WebAssertionsTypes from 'interfaces/webAssertions.interface';
 export class WebAssertions extends WebActions {
     /**
      * Validates that the text content of a specified web element matches the expected value.
-     *
      * @param params - An object containing the following properties:
      *   - selector: The Playwright selector for the target element.
      *   - elementName: A descriptive name for the element, used in logging and error messages.
@@ -23,7 +22,6 @@ export class WebAssertions extends WebActions {
 
     /**
      * Validates the visibility of a given element on the page.
-     *
      * @param params - An object containing the following properties:
      * @param params.selector - The selector or locator for the element to validate.
      * @param params.elementName - A human-readable name for the element, used in logging.
@@ -44,7 +42,6 @@ export class WebAssertions extends WebActions {
 
     /**
      * Validates that the text content of a specified web element contains the expected partial value.
-     *
      * @param params - An object containing the following properties:
      *   - selector: The selector used to locate the web element.
      *   - expectedValue: The partial text value expected to be present in the element's text content.
@@ -62,7 +59,6 @@ export class WebAssertions extends WebActions {
     /**
      * Validates that the array of text contents retrieved from the specified selector
      * contains all the expected values provided in the `expectedArray`.
-     *
      * @param params - An object containing the following properties:
      *   - `selector`: The selector used to locate the elements whose text contents will be validated.
      *   - `elementName`: A descriptive name for the element(s), used in logging and error messages.

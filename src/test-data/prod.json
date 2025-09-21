@@ -23,30 +23,16 @@
                 "firstName": "Bob",
                 "lastName": "SuperAdmin",
                 "role": "super_admin"
-            },
-            "productAdmin": {
-                "email": "productadmin@shoppersstack.com",
-                "password": "ProductAdmin123!",
-                "firstName": "Product",
-                "lastName": "Admin",
-                "role": "product_admin"
-            },
-            "orderAdmin": {
-                "email": "orderadmin@shoppersstack.com",
-                "password": "OrderAdmin123!",
-                "firstName": "Order",
-                "lastName": "Admin",
-                "role": "order_admin"
             }
         },
         "shoppers": {
-            "shopper1": {
-                "email": "shopper1@example.com",
-                "password": "Shopper123!",
+            "mugilanShopper": {
+                "email": "mugilanrboom@gmail.com",
+                "password": "Mugilanr@1",
                 "firstName": "Alice",
                 "lastName": "Johnson",
                 "phone": "1234567890",
-                "role": "customer"
+                "role": "Shopper Login"
             },
             "shopper2": {
                 "email": "shopper2@example.com",
@@ -54,7 +40,7 @@
                 "firstName": "David",
                 "lastName": "Smith",
                 "phone": "0987654321",
-                "role": "customer"
+                "role": "Shopper Login"
             },
             "premiumShopper": {
                 "email": "premiumshopper@example.com",
@@ -62,7 +48,7 @@
                 "firstName": "Emma",
                 "lastName": "Wilson",
                 "phone": "1122334455",
-                "role": "premium_customer"
+                "role": "Shopper Login"
             }
         },
         "merchants": {
