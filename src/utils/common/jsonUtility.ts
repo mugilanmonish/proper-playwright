@@ -2,13 +2,24 @@ import fs from 'fs';
 import path from 'path';
 import 'dotenv/config';
 import type { EnvConfig } from 'types/env.types';
+import type { LoginCredentials } from 'types/loginPage.types';
 
 class JsonUtility {
+    /**
+     * @description Get environment variable
+     * @throws If ENV is undefined
+     * @returns Env string
+     * @example 'dev', 'qa', 'beta', 'prod'
+     */
     static getEnv(): string {
         if (!process.env.ENV) throw new Error('Env is undefined.');
         else return process.env.ENV;
     }
 
+    /**
+     * @returns Path to the environment JSON file based on the ENV variable
+     * @throws If ENV is not one of the expected values ('dev', 'qa', 'beta', 'prod')
+     */
     static getEnvFile(): string {
         const env = this.getEnv()?.toLowerCase();
 
@@ -17,7 +28,11 @@ class JsonUtility {
         return envPath;
     }
 
-    // Read JSON file
+    /**
+     * Reads and parses the JSON file corresponding to the current environment.
+     * @returns Parsed JSON data from the environment-specific file
+     * @throws If there is an error reading or parsing the JSON file
+     */
     static readJsonTestData(): EnvConfig {
         try {
             const absolutePath = this.getEnvFile();
@@ -28,24 +43,58 @@ class JsonUtility {
         }
     }
 
+    /**
+     * @description Get application URL from environment JSON file
+     * @returns Application URL from the environment JSON file
+     * @throws If the URL is not found in the JSON file
+     */
     static getAppUrl(): string {
         return this.readJsonTestData().url;
     }
 
+    /**
+     * @description Get API URL from environment JSON file
+     * @returns API URL from the environment JSON file
+     * @throws If the API URL is not found in the JSON file
+     */
     static getApiUrl(): string {
         return this.readJsonTestData().apiUrl;
     }
 
-    static getAdminUser(adminName: string): { email: string; password: string; role: string } {
+    /**
+     * @description Get admin user credentials from environment JSON file
+     * @param adminName - Name of the admin user to retrieve credentials for
+     * @throws If the specified admin user is not found in the JSON file
+     * @returns Admin user credentials (email, password, role)
+     */
+    static getAdminUser(adminName: string): LoginCredentials {
         const adminCred = this.readJsonTestData().users.admins[adminName];
         if (!adminCred) throw new Error(`Admin '${adminName}' not found`);
         return (({ email, password, role }) => ({ email, password, role }))(adminCred);
     }
 
-    static getShopperUser(shopperName: string): { email: string; password: string; role: string } {
+    /**
+     * @description Get shopper user credentials from environment JSON file
+     * @param shopperName - Name of the shopper user to retrieve credentials for
+     * @throws If the specified shopper user is not found in the JSON file
+     * @returns Shopper user credentials (email, password, role)
+     */
+    static getShopperUser(shopperName: string): LoginCredentials {
         const shopperCred = this.readJsonTestData().users.shoppers[shopperName];
         if (!shopperCred) throw new Error(`Shopper '${shopperName}' not found`);
         return (({ email, password, role }) => ({ email, password, role }))(shopperCred);
+    }
+
+    /**
+     * @description Get merchant user credentials from environment JSON file
+     * @param merchantName - Name of the merchant user to retrieve credentials for
+     * @throws If the specified merchant user is not found in the JSON file
+     * @returns Merchant user credentials (email, password, role)
+     */
+    static getMerchantUser(merchantName: string): LoginCredentials {
+        const merchantCred = this.readJsonTestData().users.merchants[merchantName];
+        if (!merchantCred) throw new Error(`Merchant '${merchantName}' not found`);
+        return (({ email, password, role }) => ({ email, password, role }))(merchantCred);
     }
 
     // Write JSON file (overwrites existing content)
