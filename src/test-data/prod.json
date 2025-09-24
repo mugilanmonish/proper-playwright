@@ -1,0 +1,243 @@
+{
+    "url": "https://www.shoppersstack.com/",
+    "apiUrl": "https://www.shoppersstack.com/shopping",
+    "users": {
+        "admins": {
+            "superAdmin1": {
+                "email": "superadmin1@shoppersstack.com",
+                "password": "SuperAdmin123!",
+                "firstName": "John",
+                "lastName": "SuperAdmin",
+                "role": "super_admin"
+            },
+            "superAdmin2": {
+                "email": "superadmin2@shoppersstack.com",
+                "password": "SuperAdmin456!",
+                "firstName": "Jane",
+                "lastName": "SuperAdmin",
+                "role": "super_admin"
+            },
+            "superAdmin3": {
+                "email": "superadmin3@shoppersstack.com",
+                "password": "SuperAdmin789!",
+                "firstName": "Bob",
+                "lastName": "SuperAdmin",
+                "role": "super_admin"
+            }
+        },
+        "shoppers": {
+            "mugilanShopper": {
+                "email": "mugilanrboom@gmail.com",
+                "password": "Mugilanr@1",
+                "firstName": "Alice",
+                "lastName": "Johnson",
+                "phone": "1234567890",
+                "role": "Shopper Login"
+            },
+            "shopper2": {
+                "email": "shopper2@example.com",
+                "password": "Shopper456!",
+                "firstName": "David",
+                "lastName": "Smith",
+                "phone": "0987654321",
+                "role": "Shopper Login"
+            },
+            "premiumShopper": {
+                "email": "premiumshopper@example.com",
+                "password": "Premium123!",
+                "firstName": "Emma",
+                "lastName": "Wilson",
+                "phone": "1122334455",
+                "role": "Shopper Login"
+            }
+        },
+        "merchants": {
+            "merchant1": {
+                "email": "merchant1@business.com",
+                "password": "Merchant123!",
+                "firstName": "Robert",
+                "lastName": "Brown",
+                "businessName": "Brown Electronics Store",
+                "phone": "5556667777",
+                "role": "seller"
+            },
+            "merchant2": {
+                "email": "merchant2@business.com",
+                "password": "Merchant456!",
+                "firstName": "Sarah",
+                "lastName": "Davis",
+                "businessName": "Davis Fashion Hub",
+                "phone": "4443332222",
+                "role": "seller"
+            },
+            "premiumMerchant": {
+                "email": "premiummerchant@business.com",
+                "password": "PremiumMerchant123!",
+                "firstName": "Michael",
+                "lastName": "Taylor",
+                "businessName": "Taylor Premium Goods",
+                "phone": "7778889999",
+                "role": "premium_seller"
+            }
+        }
+    },
+    "products": {
+        "electronics": {
+            "smartphone": {
+                "name": "iPhone 15 Pro Max",
+                "brand": "Apple",
+                "category": "Electronics",
+                "subCategory": "Smartphones",
+                "description": "Latest flagship smartphone with titanium design, A17 Pro chip, and advanced camera system"
+            },
+            "laptop": {
+                "name": "MacBook Air M3",
+                "brand": "Apple",
+                "category": "Electronics",
+                "subCategory": "Laptops",
+                "description": "Ultra-thin laptop with M3 chip, 13-inch Liquid Retina display, and all-day battery life"
+            },
+            "headphones": {
+                "name": "Sony WH-1000XM5",
+                "brand": "Sony",
+                "category": "Electronics",
+                "subCategory": "Audio",
+                "description": "Industry-leading noise canceling wireless headphones with 30-hour battery life"
+            },
+            "smartwatch": {
+                "name": "Apple Watch Series 9",
+                "brand": "Apple",
+                "category": "Electronics",
+                "subCategory": "Wearables",
+                "description": "Advanced smartwatch with health monitoring, fitness tracking, and cellular connectivity"
+            },
+            "tablet": {
+                "name": "iPad Pro 12.9",
+                "brand": "Apple",
+                "category": "Electronics",
+                "subCategory": "Tablets",
+                "description": "Professional tablet with M2 chip, Liquid Retina XDR display, and Apple Pencil support"
+            }
+        },
+        "clothing": {
+            "tshirt": {
+                "name": "Premium Cotton T-Shirt",
+                "brand": "Nike",
+                "category": "Clothing",
+                "subCategory": "Men's Shirts",
+                "description": "Comfortable 100% cotton t-shirt with classic fit and breathable fabric"
+            },
+            "jeans": {
+                "name": "Classic Straight Jeans",
+                "brand": "Levi's",
+                "category": "Clothing",
+                "subCategory": "Men's Pants",
+                "description": "Timeless straight-leg jeans made from premium denim with authentic vintage wash"
+            },
+            "dress": {
+                "name": "Elegant Summer Dress",
+                "brand": "Zara",
+                "category": "Clothing",
+                "subCategory": "Women's Dresses",
+                "description": "Flowing midi dress with floral print, perfect for casual and formal occasions"
+            },
+            "jacket": {
+                "name": "Leather Biker Jacket",
+                "brand": "H&M",
+                "category": "Clothing",
+                "subCategory": "Outerwear",
+                "description": "Genuine leather jacket with asymmetric zip closure and classic biker styling"
+            },
+            "sneakers": {
+                "name": "Air Max 270",
+                "brand": "Nike",
+                "category": "Clothing",
+                "subCategory": "Footwear",
+                "description": "Lifestyle sneakers with large Max Air unit for exceptional comfort and style"
+            }
+        },
+        "books": {
+            "programming": {
+                "name": "JavaScript: The Complete Guide",
+                "brand": "O'Reilly",
+                "category": "Books",
+                "subCategory": "Programming",
+                "description": "Comprehensive guide to modern JavaScript development with practical examples and best practices"
+            },
+            "fiction": {
+                "name": "The Great Gatsby",
+                "brand": "Penguin Classics",
+                "category": "Books",
+                "subCategory": "Classic Literature",
+                "description": "F. Scott Fitzgerald's masterpiece about the Jazz Age and the American Dream"
+            },
+            "cookbook": {
+                "name": "The Joy of Cooking",
+                "brand": "Scribner",
+                "category": "Books",
+                "subCategory": "Cooking",
+                "description": "America's most trusted cookbook with over 4,000 recipes and cooking techniques"
+            },
+            "biography": {
+                "name": "Steve Jobs",
+                "brand": "Simon & Schuster",
+                "category": "Books",
+                "subCategory": "Biography",
+                "description": "Walter Isaacson's definitive biography of Apple's visionary co-founder"
+            }
+        },
+        "home": {
+            "sofa": {
+                "name": "Sectional Sofa",
+                "brand": "IKEA",
+                "category": "Home & Garden",
+                "subCategory": "Living Room Furniture",
+                "description": "Comfortable L-shaped sectional sofa with removable covers and soft cushions"
+            },
+            "coffeemaker": {
+                "name": "Espresso Machine",
+                "brand": "Breville",
+                "category": "Home & Garden",
+                "subCategory": "Kitchen Appliances",
+                "description": "Professional-grade espresso machine with built-in grinder and milk frother"
+            },
+            "bedding": {
+                "name": "Egyptian Cotton Sheet Set",
+                "brand": "Brooklinen",
+                "category": "Home & Garden",
+                "subCategory": "Bedding",
+                "description": "Luxurious 100% Egyptian cotton percale sheets with crisp, hotel-like feel"
+            },
+            "lamp": {
+                "name": "Modern Table Lamp",
+                "brand": "West Elm",
+                "category": "Home & Garden",
+                "subCategory": "Lighting",
+                "description": "Contemporary ceramic table lamp with fabric shade and brass accents"
+            }
+        },
+        "sports": {
+            "basketball": {
+                "name": "Official NBA Basketball",
+                "brand": "Spalding",
+                "category": "Sports & Recreation",
+                "subCategory": "Sports Equipment",
+                "description": "Official size and weight basketball used in NBA games with superior grip"
+            },
+            "yogamat": {
+                "name": "Premium Yoga Mat",
+                "brand": "Lululemon",
+                "category": "Sports & Recreation",
+                "subCategory": "Fitness Equipment",
+                "description": "Non-slip yoga mat with superior cushioning and eco-friendly materials"
+            },
+            "tennisracket": {
+                "name": "Professional Tennis Racket",
+                "brand": "Wilson",
+                "category": "Sports & Recreation",
+                "subCategory": "Racquet Sports",
+                "description": "High-performance tennis racket with advanced string technology and balanced weight"
+            }
+        }
+    }
+}

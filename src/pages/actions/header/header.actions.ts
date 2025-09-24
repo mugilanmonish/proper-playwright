@@ -12,12 +12,11 @@ export class HeaderActions extends BasePage {
 
     /**
      * Launches the application and performs a hover and click action on the login button.
-     *
      * @returns {Promise<void>} A promise that resolves when the login button has been clicked.
      * @throws Will throw an error if launching the app or clicking the login button fails.
      */
     async clickLoginButton(): Promise<void> {
-        await this.launchTheApp();
+        await this.navigateToApplication();
         await this.webActions.hoverAndClick('login button', this.selectors.loginButton);
     }
 }

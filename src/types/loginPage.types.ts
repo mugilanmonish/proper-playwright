@@ -1,7 +1,5 @@
-import type { LoginRole } from 'enums/login.enum';
-
 export type LoginCredentials = {
-    username: string;
+    email: string;
     password: string;
-    role: LoginRole;
+    role: string;
 };

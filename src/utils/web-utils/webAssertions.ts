@@ -6,7 +6,6 @@ import type * as WebAssertionsTypes from 'interfaces/webAssertions.interface';
 export class WebAssertions extends WebActions {
     /**
      * Validates that the text content of a specified web element matches the expected value.
-     *
      * @param params - An object containing the following properties:
      *   - selector: The Playwright selector for the target element.
      *   - elementName: A descriptive name for the element, used in logging and error messages.
@@ -17,13 +16,12 @@ export class WebAssertions extends WebActions {
     async validateText(params: WebAssertionsTypes.ValidateTextParams): Promise<void> {
         await logStep(`Validating ${params.elementName} text`, async () => {
             const text = await params.selector.textContent();
-            expect(text?.trim(), `${params.elementName} text is not displayed`).toBe(params.expectedValue);
+            expect(text?.trim(), `${params.elementName} text is not available or incorrect`).toBe(params.expectedValue);
         });
     }
 
     /**
      * Validates the visibility of a given element on the page.
-     *
      * @param params - An object containing the following properties:
      * @param params.selector - The selector or locator for the element to validate.
      * @param params.elementName - A human-readable name for the element, used in logging.
@@ -37,14 +35,13 @@ export class WebAssertions extends WebActions {
         isVisible = true
     }: WebAssertionsTypes.ValidateVisibility): Promise<void> {
         await logStep(`Validating ${elementName} visibility`, async () => {
-            if (isVisible) await expect(selector, `${elementName} is visible`).toBeInViewport({ ratio: 1 });
-            else await expect(selector, `${elementName} is not visible`).not.toBeVisible();
+            if (isVisible) await expect(selector, `${elementName} is not visible`).toBeInViewport({ ratio: 1 });
+            else await expect(selector, `${elementName} is visible`).toBeHidden();
         });
     }
 
     /**
      * Validates that the text content of a specified web element contains the expected partial value.
-     *
      * @param params - An object containing the following properties:
      *   - selector: The selector used to locate the web element.
      *   - expectedValue: The partial text value expected to be present in the element's text content.
@@ -55,14 +52,15 @@ export class WebAssertions extends WebActions {
     async validatePartialText(params: WebAssertionsTypes.ValidateTextParams): Promise<void> {
         await logStep(`Validating ${params.elementName} text`, async () => {
             const text = await this.textContent(params.selector);
-            expect(text?.trim(), `${params.elementName} text is not displayed`).toContain(params.expectedValue);
+            expect(text?.trim(), `${params.elementName} text is not available or incorrect`).toContain(
+                params.expectedValue
+            );
         });
     }
 
     /**
      * Validates that the array of text contents retrieved from the specified selector
      * contains all the expected values provided in the `expectedArray`.
-     *
      * @param params - An object containing the following properties:
      *   - `selector`: The selector used to locate the elements whose text contents will be validated.
      *   - `elementName`: A descriptive name for the element(s), used in logging and error messages.
@@ -71,7 +69,7 @@ export class WebAssertions extends WebActions {
      * @throws Will throw an assertion error if the actual text contents do not contain all expected values.
      */
     async validateArray(params: WebAssertionsTypes.ValidateArray): Promise<void> {
-        await logStep(`Validating object ${params.elementName} all text`, async () => {
+        await logStep(`Validating ${params.elementName} list`, async () => {
             const allText = await this.allTextContents(params.selector);
             expect(allText, `Validating all text of ${params.elementName} texts`).toEqual(
                 expect.arrayContaining(params.expectedArray)
