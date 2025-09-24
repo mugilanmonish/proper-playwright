@@ -4,6 +4,7 @@ export interface ValidateTextParams {
     elementName: string;
     selector: Locator;
     expectedValue: string;
+    normalizeCase?: boolean;
 }
 
 export interface ValidateVisibility {

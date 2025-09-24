@@ -4,13 +4,16 @@ import { logStep } from '@utils/common/allureUtility';
 import { LoginSelectors } from '@selectors/login.selectors';
 import type { LoginCredentials } from 'types/loginPage.types';
 import jsonUtility from '@utils/common/jsonUtility';
+import { HeaderSelector } from '@selectors/header/header.selector';
 
 export class LoginActions extends BasePage {
     private loginSelector: LoginSelectors;
+    private headerSelector: HeaderSelector;
 
     constructor(protected readonly page: Page) {
         super(page);
         this.loginSelector = new LoginSelectors(page);
+        this.headerSelector = new HeaderSelector(page);
     }
 
     /**
@@ -45,10 +48,10 @@ export class LoginActions extends BasePage {
             await this.webActions.fill(user.email, 'username', this.loginSelector.usernameInput);
             await this.webActions.fill(user.password, 'password', this.loginSelector.passwordInput);
             await this.webActions.click('login button', this.loginSelector.loginButton);
-            await this.webAssertions.validatePartialText({
-                elementName: 'User name',
-                expectedValue: 'mugilan',
-                selector: this.page.locator('//h3')
+            await this.webAssertions.validateVisibility({
+                selector: this.headerSelector.usernameText,
+                elementName: 'Username',
+                isVisible: true
             });
         });
     }

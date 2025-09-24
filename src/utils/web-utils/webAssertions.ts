@@ -16,7 +16,7 @@ export class WebAssertions extends WebActions {
     async validateText(params: WebAssertionsTypes.ValidateTextParams): Promise<void> {
         await logStep(`Validating ${params.elementName} text`, async () => {
             const text = await params.selector.textContent();
-            expect(text?.trim(), `${params.elementName} text is not displayed`).toBe(params.expectedValue);
+            expect(text?.trim(), `${params.elementName} text is not available or incorrect`).toBe(params.expectedValue);
         });
     }
 
@@ -35,8 +35,8 @@ export class WebAssertions extends WebActions {
         isVisible = true
     }: WebAssertionsTypes.ValidateVisibility): Promise<void> {
         await logStep(`Validating ${elementName} visibility`, async () => {
-            if (isVisible) await expect(selector, `${elementName} is visible`).toBeInViewport({ ratio: 1 });
-            else await expect(selector, `${elementName} is not visible`).not.toBeVisible();
+            if (isVisible) await expect(selector, `${elementName} is not visible`).toBeInViewport({ ratio: 1 });
+            else await expect(selector, `${elementName} is visible`).toBeHidden();
         });
     }
 
@@ -52,7 +52,9 @@ export class WebAssertions extends WebActions {
     async validatePartialText(params: WebAssertionsTypes.ValidateTextParams): Promise<void> {
         await logStep(`Validating ${params.elementName} text`, async () => {
             const text = await this.textContent(params.selector);
-            expect(text?.trim(), `${params.elementName} text is not displayed`).toContain(params.expectedValue);
+            expect(text?.trim(), `${params.elementName} text is not available or incorrect`).toContain(
+                params.expectedValue
+            );
         });
     }
 
@@ -67,7 +69,7 @@ export class WebAssertions extends WebActions {
      * @throws Will throw an assertion error if the actual text contents do not contain all expected values.
      */
     async validateArray(params: WebAssertionsTypes.ValidateArray): Promise<void> {
-        await logStep(`Validating object ${params.elementName} all text`, async () => {
+        await logStep(`Validating ${params.elementName} list`, async () => {
             const allText = await this.allTextContents(params.selector);
             expect(allText, `Validating all text of ${params.elementName} texts`).toEqual(
                 expect.arrayContaining(params.expectedArray)
