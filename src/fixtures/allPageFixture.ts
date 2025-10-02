@@ -8,7 +8,7 @@ type Fixtures = {
 export const test = base.extend<Fixtures>({
     pages: async ({ browser }, use) => {
         const context = await browser.newContext({
-            viewport: { width: 1280, height: 720 },
+            viewport: { width: 1920, height: 1080 },
             permissions: ['clipboard-read']
             // storageState: '.storageState.json'
         });

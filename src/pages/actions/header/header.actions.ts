@@ -1,6 +1,7 @@
 import type { Page } from '@playwright/test';
 import { BasePage } from '@basePage/base.page';
 import { HeaderSelector } from '@selectors/header/header.selector';
+import { logStep } from '@utils/common/allureUtility';
 
 export class HeaderActions extends BasePage {
     private selectors: HeaderSelector;
@@ -18,5 +19,16 @@ export class HeaderActions extends BasePage {
     async clickLoginButton(): Promise<void> {
         await this.navigateToApplication();
         await this.webActions.hoverAndClick('login button', this.selectors.loginButton);
+    }
+
+    async searchForItem(itemName: string): Promise<void> {
+        await logStep(`Searching for item: ${itemName} and validating the search results`, async () => {
+            await this.webActions.fill(itemName, 'search', this.selectors.searchInput);
+            await this.webActions.click('search button', this.selectors.searchButton);
+            await this.webAssertions.validateVisibility({
+                selector: this.page.locator('span', { hasText: itemName }),
+                elementName: 'us polo kids'
+            });
+        });
     }
 }

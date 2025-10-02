@@ -1,4 +1,4 @@
-import type { Page } from '@playwright/test';
+import { expect, type Page } from '@playwright/test';
 import { BasePage } from '@basePage/base.page';
 import { logStep } from '@utils/common/allureUtility';
 import { LoginSelectors } from '@selectors/login.selectors';
@@ -43,6 +43,7 @@ export class LoginActions extends BasePage {
         const { role } = user;
         await this.webActions.click(role, this.loginSelector.userRoleLoginButton(role));
         await this.enterCredentials(user);
+        await expect(this.page.locator('div[class*="featuredProducts_cardContainer"] > div')).toHaveCount(12);
     }
 
     /**

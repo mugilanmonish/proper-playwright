@@ -11,13 +11,13 @@ export default defineConfig({
     workers: process.env.CI ? 1 : 1,
 
     reporter: [
-        ['./src/utils/common/customAllureRepoter.ts', { detail: false, outputFolder: 'allure-results' }],
-        ['html', { open: 'never', outputFolder: 'html-report' }],
-        ['list']
+        ['./src/utils/common/customAllureRepoter.ts', { detail: false, outputFolder: 'allure-results' }]
+        // ['html', { open: 'never', outputFolder: 'html-report' }],
+        // ['list']
     ],
-    timeout: 120000, // 2 min
+    timeout: 60000, // 2 min
     expect: {
-        timeout: 15000
+        timeout: 30000
     },
 
     use: {
