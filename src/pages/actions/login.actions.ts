@@ -53,6 +53,12 @@ export class LoginActions extends BasePage {
                 elementName: 'Username',
                 isVisible: true
             });
+            await this.page.waitForResponse(
+                (response) =>
+                    response.url().endsWith('carts') &&
+                    response.status() === 200 &&
+                    response.request().method() === 'GET'
+            );
         });
     }
 }
