@@ -3,3 +3,5 @@ export type LoginCredentials = {
     password: string;
     role: string;
 };
+
+export type UserType = 'shopper' | 'admin' | 'merchant';

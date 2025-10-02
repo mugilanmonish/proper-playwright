@@ -13,7 +13,7 @@ export class WebActions {
      * @returns A promise that resolves when navigation is complete.
      */
     async goTo(url: string): Promise<void> {
-        await logStep(`Navigate to Shopperstack`, async () => {
+        await logStep(`Navigate to Shopperstack ${url}`, async () => {
             await this.page.goto(url);
         });
     }

@@ -2,7 +2,7 @@ import type { Page } from '@playwright/test';
 import { BasePage } from '@basePage/base.page';
 import { logStep } from '@utils/common/allureUtility';
 import { LoginSelectors } from '@selectors/login.selectors';
-import type { LoginCredentials } from 'types/loginPage.types';
+import type { LoginCredentials, UserType } from 'types/loginPage.types';
 import jsonUtility from '@utils/common/jsonUtility';
 import { HeaderSelector } from '@selectors/header/header.selector';
 
@@ -25,8 +25,21 @@ export class LoginActions extends BasePage {
      * @param credentials - An object containing the login credentials and user role.
      * @returns A promise that resolves when the login process is complete.
      */
-    async loginAs(userCredential: string): Promise<void> {
-        const user = jsonUtility.getShopperUser(userCredential);
+    async loginAs({ userType, userCredential }: { userType: UserType; userCredential: string }): Promise<void> {
+        let user: LoginCredentials;
+        switch (userType) {
+            case 'shopper':
+                user = jsonUtility.getShopperUser(userCredential);
+                break;
+            case 'admin':
+                user = jsonUtility.getAdminUser(userCredential);
+                break;
+            case 'merchant':
+                user = jsonUtility.getMerchantUser(userCredential);
+                break;
+            default:
+                throw new Error(`Unsupported user type: ${userType}`);
+        }
         const { role } = user;
         await this.webActions.click(role, this.loginSelector.userRoleLoginButton(role));
         await this.enterCredentials(user);
@@ -53,12 +66,6 @@ export class LoginActions extends BasePage {
                 elementName: 'Username',
                 isVisible: true
             });
-            await this.page.waitForResponse(
-                (response) =>
-                    response.url().endsWith('carts') &&
-                    response.status() === 200 &&
-                    response.request().method() === 'GET'
-            );
         });
     }
 }
