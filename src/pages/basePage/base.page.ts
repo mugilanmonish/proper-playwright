@@ -1,17 +1,20 @@
 import type { Page } from '@playwright/test';
 import jsonUtility from '@utils/common/jsonUtility';
 import { WebActions } from '@utils/web-utils/webActions';
+import { NetworkWaiter } from '@utils/web-utils/networkWaiter';
 import { WebAssertions } from '@utils/web-utils/webAssertions';
 
 export class BasePage {
+    protected page: Page;
     protected webActions: WebActions;
     protected webAssertions: WebAssertions;
-    protected page: Page;
+    protected networkWaiter: NetworkWaiter;
 
     constructor(page: Page) {
         this.page = page;
         this.webActions = new WebActions(page);
         this.webAssertions = new WebAssertions(page);
+        this.networkWaiter = new NetworkWaiter(page);
     }
 
     /**

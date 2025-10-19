@@ -1,19 +1,22 @@
-import { expect, type Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
 import { BasePage } from '@basePage/base.page';
-import { logStep } from '@utils/common/allureUtility';
+import { logStep } from '@utils/common/stepLevelLog';
 import { LoginSelectors } from '@selectors/login.selectors';
 import type { LoginCredentials, UserType } from 'types/loginPage.types';
 import jsonUtility from '@utils/common/jsonUtility';
-import { HeaderSelector } from '@selectors/header/header.selector';
+import { HeaderSelector } from '@selectors/header/header.selectors';
+import { HomeSelectors } from '@selectors/home.selector';
 
 export class LoginActions extends BasePage {
     private loginSelector: LoginSelectors;
     private headerSelector: HeaderSelector;
+    private homeSelector: HomeSelectors;
 
     constructor(protected readonly page: Page) {
         super(page);
         this.loginSelector = new LoginSelectors(page);
         this.headerSelector = new HeaderSelector(page);
+        this.homeSelector = new HomeSelectors(page);
     }
 
     /**
@@ -43,7 +46,7 @@ export class LoginActions extends BasePage {
         const { role } = user;
         await this.webActions.click(role, this.loginSelector.userRoleLoginButton(role));
         await this.enterCredentials(user);
-        await expect(this.page.locator('div[class*="featuredProducts_cardContainer"] > div')).toHaveCount(12);
+        await this.webAssertions.validateCount({ selector: this.homeSelector.featuredProductCount, elementName: 'Featured products', expectedCount: 12 });
     }
 
     /**

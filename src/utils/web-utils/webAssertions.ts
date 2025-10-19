@@ -1,6 +1,6 @@
 import WebActions from './webActions';
 import { expect } from '@playwright/test';
-import { logStep } from '@utils/common/allureUtility';
+import { logStep } from '@utils/common/stepLevelLog';
 import type * as WebAssertionsTypes from 'interfaces/webAssertions.interface';
 
 export class WebAssertions extends WebActions {
@@ -29,11 +29,7 @@ export class WebAssertions extends WebActions {
      *                           If false, asserts that the element is not visible.
      * @returns A promise that resolves when the visibility assertion is complete.
      */
-    async validateVisibility({
-        selector,
-        elementName,
-        isVisible = true
-    }: WebAssertionsTypes.ValidateVisibility): Promise<void> {
+    async validateVisibility({ selector, elementName, isVisible = true }: WebAssertionsTypes.ValidateVisibility): Promise<void> {
         await logStep(`Validating ${elementName} visibility`, async () => {
             if (isVisible) await expect(selector, `${elementName} is not visible`).toBeInViewport({ ratio: 1 });
             else await expect(selector, `${elementName} is visible`).toBeHidden();
@@ -52,9 +48,7 @@ export class WebAssertions extends WebActions {
     async validatePartialText(params: WebAssertionsTypes.ValidateTextParams): Promise<void> {
         await logStep(`Validating ${params.elementName} text`, async () => {
             const text = await this.textContent(params.selector);
-            expect(text?.trim(), `${params.elementName} text is not available or incorrect`).toContain(
-                params.expectedValue
-            );
+            expect(text?.trim(), `${params.elementName} text is not available or incorrect`).toContain(params.expectedValue);
         });
     }
 
@@ -71,9 +65,22 @@ export class WebAssertions extends WebActions {
     async validateArray(params: WebAssertionsTypes.ValidateArray): Promise<void> {
         await logStep(`Validating ${params.elementName} list`, async () => {
             const allText = await this.allTextContents(params.selector);
-            expect(allText, `Validating all text of ${params.elementName} texts`).toEqual(
-                expect.arrayContaining(params.expectedArray)
-            );
+            expect(allText, `Validating all text of ${params.elementName} texts`).toEqual(expect.arrayContaining(params.expectedArray));
+        });
+    }
+
+    /**
+     * Validates the count of elements matching a specific selector.
+     * @param params - An object containing the following properties:
+     *   - `selector`: The selector used to locate the elements whose count will be validated.
+     *   - `elementName`: A descriptive name for the element(s), used in logging and error messages.
+     *   - `expectedCount`: The expected number of elements that should match the selector.
+     * @returns A promise that resolves when the validation is complete.
+     * @throws Will throw an assertion error if the actual count does not match the expected count.
+     */
+    async validateCount(params: WebAssertionsTypes.ValidateCount): Promise<void> {
+        await logStep(`Validating ${params.elementName} count`, async () => {
+            await expect(params.selector, `Validating count of ${params.elementName}`).toHaveCount(params.expectedCount);
         });
     }
 }

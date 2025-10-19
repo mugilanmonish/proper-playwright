@@ -1,5 +1,5 @@
 import type { Locator, Page } from '@playwright/test';
-import { logStep } from '@utils/common/allureUtility';
+import { logStep } from '@utils/common/stepLevelLog';
 
 export class WebActions {
     protected page: Page;

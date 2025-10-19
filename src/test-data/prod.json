@@ -1,6 +1,6 @@
 {
     "url": "https://www.shoppersstack.com/",
-    "apiUrl": "https://www.shoppersstack.com/shopping",
+    "apiUrl": "https://www.shoppersstack.com/shopping/",
     "users": {
         "admins": {
             "superAdmin1": {
@@ -124,7 +124,8 @@
                 "name": "us polo kids",
                 "category": "Clothing",
                 "subCategory": "kids",
-                "description": "Brand: US Polo Kids, Style Code: UKTSHON0099, Size: 3 - 4 Years, Brand Color: Green, Ideal For: Boys, Fabric: Pure Cotton, Primary Color: Green, Pattern: Printed, Fit: Regular, Occasion: Casual, Type: Round Neck, Sleeve Type: Short Sleeve, Number of T-Shirts: 1, Fabric Care: Gentle Machine Wash, Reversible: No, Fabric Details: 100% Cotton"
+                "description": "Brand: US Polo Kids, Style Code: UKTSHON0099, Size: 3 - 4 Years, Brand Color: Green, Ideal For: Boys, Fabric: Pure Cotton, Primary Color: Green, Pattern: Printed, Fit: Regular, Occasion: Casual, Type: Round Neck, Sleeve Type: Short Sleeve, Number of T-Shirts: 1, Fabric Care: Gentle Machine Wash, Reversible: No, Fabric Details: 100% Cotton",
+                "productId": 27
             },
             "jeans": {
                 "name": "Classic Straight Jeans",

@@ -7,6 +7,9 @@ import { MyWalletTabActions } from '@actions/header/accountSettings/profile/myWa
 import { MyProfileTabActions } from '@actions/header/accountSettings/profile/myProfile-tab.actions';
 import { MyLikesTabActions } from '@actions/header/accountSettings/profile/myLikes-tab.actions';
 import { MyAddressTabActions } from '@actions/header/accountSettings/profile/myAddress-tab.actions';
+import { ProductDescriptionActions } from '@actions/productDescription.actions';
+import { AddressActions } from '@actions/address.actions';
+import { cartActions } from '@actions/cart.actions';
 
 export class PageObjectFactory {
     private _loginActions?: LoginActions;
@@ -17,6 +20,9 @@ export class PageObjectFactory {
     private _myProfileTabActions?: MyProfileTabActions;
     private _myLikesTabActions?: MyLikesTabActions;
     private _myAddressTabActions?: MyAddressTabActions;
+    private _productDescriptionActions?: ProductDescriptionActions;
+    private _addressActions?: AddressActions;
+    private _cartActions?: cartActions;
 
     constructor(private readonly page: Page) {
         this.page = page;
@@ -45,5 +51,17 @@ export class PageObjectFactory {
     }
     get myAddressTabActions(): MyAddressTabActions {
         return (this._myAddressTabActions ??= new MyAddressTabActions(this.page));
+    }
+
+    get productDescriptionActions(): ProductDescriptionActions {
+        return (this._productDescriptionActions ??= new ProductDescriptionActions(this.page));
+    }
+
+    get cartActions(): cartActions {
+        return (this._cartActions ??= new cartActions(this.page));
+    }
+
+    get addressActions(): AddressActions {
+        return (this._addressActions ??= new AddressActions(this.page));
     }
 }

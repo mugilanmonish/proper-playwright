@@ -1,7 +1,7 @@
 import type { Page } from '@playwright/test';
 import { BasePage } from '@basePage/base.page';
-import { HeaderSelector } from '@selectors/header/header.selector';
-import { logStep } from '@utils/common/allureUtility';
+import { HeaderSelector } from '@selectors/header/header.selectors';
+import { logStep } from '@utils/common/stepLevelLog';
 
 export class HeaderActions extends BasePage {
     private selectors: HeaderSelector;
@@ -27,8 +27,16 @@ export class HeaderActions extends BasePage {
             await this.webActions.click('search button', this.selectors.searchButton);
             await this.webAssertions.validateVisibility({
                 selector: this.page.locator('span', { hasText: itemName }),
-                elementName: 'us polo kids'
+                elementName: itemName
             });
         });
+    }
+
+    async clickShoppersStackIcon(): Promise<void> {
+        await this.webActions.click('shopperstack icon', this.selectors.shopperstackIcon);
+    }
+
+    async clickCartIcon(): Promise<void> {
+        await this.webActions.click('cart icon', this.selectors.cartButton);
     }
 }
