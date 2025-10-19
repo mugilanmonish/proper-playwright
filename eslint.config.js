@@ -19,12 +19,12 @@ export default [
             '@typescript-eslint/await-thenable': 'error',
             'no-undef': 'off',
             'no-unused-vars': ['error', { args: 'all' }],
-            'no-console': 'error',
+            'no-console': 'warn',
             'prefer-const': 'error',
             'no-empty': ['error', { allowEmptyCatch: false }],
 
             // ✅ Additional recommended TypeScript rules
-            '@typescript-eslint/no-explicit-any': 'warn',
+            '@typescript-eslint/no-explicit-any': 'error',
             '@typescript-eslint/explicit-function-return-type': [
                 'warn',
                 {
