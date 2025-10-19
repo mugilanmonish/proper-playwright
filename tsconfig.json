@@ -18,6 +18,6 @@
             "@fixtures/*": ["fixtures/*"]
         }
     },
-    "include": ["src/**/*.ts", "playwright.config.ts"],
+    "include": ["src/**/*.ts", "playwright.config.ts", "playwright-api.config.ts"],
     "exclude": ["node_modules"]
 }
