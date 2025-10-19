@@ -19,7 +19,7 @@ export default [
             '@typescript-eslint/await-thenable': 'error',
             'no-undef': 'off',
             'no-unused-vars': ['error', { args: 'all' }],
-            'no-console': 'erro',
+            'no-console': 'warn',
             'prefer-const': 'error',
             'no-empty': ['error', { allowEmptyCatch: false }],
 
