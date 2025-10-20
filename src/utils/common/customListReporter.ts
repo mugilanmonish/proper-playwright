@@ -1,3 +1,4 @@
+/* eslint-disable */
 import type { FullConfig } from '@playwright/test';
 import type { Reporter, TestCase, TestResult, Suite } from '@playwright/test/reporter';
 
@@ -39,7 +40,7 @@ export default class CustomListReporter implements Reporter {
 
     // onEnd(): void {}
 
-    onError(error: { message: any }): void {
+    onError(error: { message: string }): void {
         console.log(`Error: ${error.message}`);
     }
 

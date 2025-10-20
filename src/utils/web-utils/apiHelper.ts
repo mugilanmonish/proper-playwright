@@ -1,13 +1,12 @@
-import type { Page } from '@playwright/test';
-import { expect } from '@playwright/test';
+import { request, expect } from '@playwright/test';
+import type { Page, APIRequestContext, APIResponse } from '@playwright/test';
 import jsonUtility from '@utils/common/jsonUtility';
 import { logStep } from '@utils/common/stepLevelLog';
-import type { APIRequestContext, APIResponse } from '@playwright/test';
-import { request } from '@playwright/test';
+import type * as response from 'interfaces/api/response.interface';
 
 export default class ApiHelper {
     protected page: Page;
-    private apiContext!: APIRequestContext;
+    private apiContext?: APIRequestContext;
 
     constructor(page: Page) {
         this.page = page;
@@ -37,27 +36,24 @@ export default class ApiHelper {
      * Perform a GET request
      */
     async get(endpoint: string): Promise<APIResponse> {
-        return await logStep(`Get api call ${endpoint}`, async () => {
-            return await this.apiContext.get(endpoint);
-        });
+        await this.ensureInitialized();
+        return logStep(`GET ${endpoint}`, async () => await this.apiContext!.get(endpoint));
     }
 
     /**
      * Perform a POST request
      */
-    async post(endpoint: string, payload: object): Promise<APIResponse> {
-        return await logStep(`Post api call ${endpoint}`, async () => {
-            return await this.apiContext.post(endpoint, { data: payload });
-        });
+    async post(endpoint: string, payload: Record<string, unknown>): Promise<APIResponse> {
+        await this.ensureInitialized();
+        return logStep(`POST ${endpoint}`, async () => await this.apiContext!.post(endpoint, { data: payload }));
     }
 
     /**
-     * Perform a POST request
+     * Perform a DELETE request
      */
     async delete(endpoint: string): Promise<APIResponse> {
-        return await logStep(`Delete api call ${endpoint}`, async () => {
-            return await this.apiContext.delete(endpoint);
-        });
+        await this.ensureInitialized();
+        return logStep(`DELETE ${endpoint}`, async () => await this.apiContext!.delete(endpoint));
     }
 
     /**
@@ -67,99 +63,114 @@ export default class ApiHelper {
         await logStep(`Cleanup api context`, async () => {
             if (this.apiContext) {
                 await this.apiContext.dispose();
-                this.apiContext = undefined as any;
+                this.apiContext = undefined;
             }
         });
     }
 
     /**
-     * This function is used to get the product id by using product name
-     * @returns {Array<number>} Product id
+     * Get product ID by product name
      */
-    async getProductIdByName(responseBody: any, productName: string): Promise<number> {
-        return await logStep(`Get product id by product name`, async () => {
-            const product = responseBody.data.find((item: { productName: string }) => item.productName.toLowerCase() === productName.toLowerCase());
-            return (await product) ? product.productId : null;
+    async getProductIdByName(responseBody: response.ProductResponse, productName: string): Promise<number | null> {
+        return logStep(`Get product id by name: ${productName}`, () => {
+            const product = responseBody.data.find((item) => item.productName.toLowerCase() === productName.toLowerCase());
+            return product ? product.productId : null;
         });
     }
 
     /**
-     * This function is used to get all product id
-     * @returns {Array<number>} Array of product id
+     * Get all product IDs
      */
-    async getAllProductId(responseBody: any): Promise<[number]> {
-        return await logStep(`Get all product id`, async () => {
-            const produtList = await responseBody.data.map((item: any) => item.productId);
-            return produtList;
+    async getAllProductId(responseBody: response.ProductResponse): Promise<number[]> {
+        return logStep(`Get all product ids`, () => {
+            return responseBody.data.map((item) => item.productId);
         });
     }
 
-    async getUserData(): Promise<any> {
-        return await logStep(`Get user cookies`, async () => {
-            const userData = await this.page.evaluate(() => {
-                const userStr: string | null = localStorage.getItem('user');
+    /**
+     * Get user data from localStorage
+     */
+    async getUserData(): Promise<response.UserData> {
+        return logStep(`Get user data from localStorage`, async () => {
+            const userData = await this.page.evaluate<response.UserData | null>(() => {
+                const userStr = localStorage.getItem('user');
                 if (!userStr) return null;
                 try {
-                    const user = JSON.parse(userStr);
-                    return user ?? null;
+                    return JSON.parse(userStr);
                 } catch {
-                    throw new Error('Not able to fetch storageState');
+                    throw new Error('Invalid JSON in localStorage for key "user"');
                 }
             });
+            if (!userData) {
+                throw new Error('User data not found in localStorage');
+            }
             return userData;
         });
     }
 
+    /**
+     * Get bearer token from user data
+     */
     async getBearerToken(): Promise<string> {
-        return await logStep(`Get bearer token from user cokkies`, async () => {
+        return logStep(`Get bearer token`, async () => {
             const userData = await this.getUserData();
-            const token: string = await userData.jwtToken;
-            if (!token) throw new Error('Bearer token not found in localStorage');
-            return token;
+            if (!userData.jwtToken) throw new Error('Bearer token not found in user data');
+            return userData.jwtToken;
         });
     }
 
+    /**
+     * Get shopper ID from user data
+     */
     async getShopperId(): Promise<number> {
-        return await logStep(`Get shopper id from user cookies`, async () => {
+        return logStep(`Get shopper ID`, async () => {
             const userData = await this.getUserData();
-            return userData?.userId;
+            if (!userData.userId) throw new Error('Shopper ID not found in user data');
+            return userData.userId;
         });
     }
 
-    async getCartList(): Promise<APIResponse> {
-        return await logStep(`Get cart list`, async () => {
-            await this.ensureInitialized();
+    /**
+     * Get cart list
+     */
+    async getCartList(): Promise<response.CartResponse> {
+        return logStep(`Get cart list`, async () => {
             const shopperId = await this.getShopperId();
-            const response = await this.apiContext.get(`shoppers/${shopperId}/carts`);
-            const responseBody = await response.json();
+            const response = await this.get(`shoppers/${shopperId}/carts`);
+            const responseBody = (await response.json()) as response.CartResponse;
             return responseBody;
         });
     }
 
+    /**
+     * Delete a specific product from cart
+     */
     async deleteProductFromCart(productName: string): Promise<void> {
-        await logStep(`Removing ${productName} product from cart`, async () => {
-            await this.ensureInitialized();
+        await logStep(`Delete product ${productName} from cart`, async () => {
             const shopperId = await this.getShopperId();
-            const cartList: any = await this.getCartList();
-            let cartId: number;
-            if (!cartList.data.length) {
-                cartId = await this.getProductIdByName(cartList, productName);
+            const cartList = await this.getCartList();
+
+            if (!cartList.data.length) return;
+
+            const cartId = await this.getProductIdByName(cartList, productName);
+            if (cartId) {
                 await this.delete(`/shoppers/${shopperId}/carts/${cartId}`);
             }
         });
     }
 
+    /**
+     * Delete all products from cart
+     */
     async deleteAllProductFromCart(): Promise<void> {
-        await logStep(`Removing all products from cart`, async () => {
-            await this.ensureInitialized();
+        await logStep(`Delete all products from cart`, async () => {
             const shopperId = await this.getShopperId();
-            const cartList: any = await this.getCartList();
-            const cartListCount: number = cartList.data.length;
-            const cartId: [number] = await this.getAllProductId(cartList);
+            const cartList = await this.getCartList();
+            const cartIds = await this.getAllProductId(cartList);
 
-            for (let i = 0; i < cartListCount; i++) {
-                const response = await this.delete(`shoppers/${shopperId}/carts/${cartId[i]}`);
-                expect(response.status(), { message: 'Validating api status code' }).toBe(200);
+            for (const id of cartIds) {
+                const response = await this.delete(`shoppers/${shopperId}/carts/${id}`);
+                expect(response.status(), { message: 'Validating delete API status' }).toBe(200);
             }
         });
     }

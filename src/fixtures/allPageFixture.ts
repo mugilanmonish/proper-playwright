@@ -24,8 +24,7 @@ export const test = base.extend<Fixtures>({
         try {
             await use({ factory, apiHelper });
         } catch (error) {
-            console.error('Error during page fixture setup:', error);
-            throw error;
+            throw new Error('Error during page fixture setup:' + error);
         } finally {
             await page.close();
             await context.close();
