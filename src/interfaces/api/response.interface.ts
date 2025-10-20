@@ -4,7 +4,7 @@
 export interface Product {
     productId: number;
     productName: string;
-    [key: string]: unknown;
+    [key: string]: number | string;
 }
 
 /**
@@ -20,7 +20,7 @@ export interface ProductResponse {
 export interface UserData {
     jwtToken: string;
     userId: number;
-    [key: string]: unknown;
+    [key: string]: number | string;
 }
 
 /**

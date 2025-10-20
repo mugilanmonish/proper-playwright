@@ -2,7 +2,7 @@ import { request, expect } from '@playwright/test';
 import type { Page, APIRequestContext, APIResponse } from '@playwright/test';
 import jsonUtility from '@utils/common/jsonUtility';
 import { logStep } from '@utils/common/stepLevelLog';
-import type * as response from 'interfaces/api/response.interface';
+import type { ProductResponse, UserData, CartResponse } from 'interfaces/api/response.interface';
 
 export default class ApiHelper {
     protected page: Page;
@@ -71,7 +71,7 @@ export default class ApiHelper {
     /**
      * Get product ID by product name
      */
-    async getProductIdByName(responseBody: response.ProductResponse, productName: string): Promise<number | null> {
+    async getProductIdByName(responseBody: ProductResponse, productName: string): Promise<number | null> {
         return logStep(`Get product id by name: ${productName}`, () => {
             const product = responseBody.data.find((item) => item.productName.toLowerCase() === productName.toLowerCase());
             return product ? product.productId : null;
@@ -81,7 +81,7 @@ export default class ApiHelper {
     /**
      * Get all product IDs
      */
-    async getAllProductId(responseBody: response.ProductResponse): Promise<number[]> {
+    async getAllProductId(responseBody: ProductResponse): Promise<number[]> {
         return logStep(`Get all product ids`, () => {
             return responseBody.data.map((item) => item.productId);
         });
@@ -90,9 +90,9 @@ export default class ApiHelper {
     /**
      * Get user data from localStorage
      */
-    async getUserData(): Promise<response.UserData> {
+    async getUserData(): Promise<UserData> {
         return logStep(`Get user data from localStorage`, async () => {
-            const userData = await this.page.evaluate<response.UserData | null>(() => {
+            const userData = await this.page.evaluate<UserData | null>(() => {
                 const userStr = localStorage.getItem('user');
                 if (!userStr) return null;
                 try {
@@ -133,11 +133,11 @@ export default class ApiHelper {
     /**
      * Get cart list
      */
-    async getCartList(): Promise<response.CartResponse> {
+    async getCartList(): Promise<CartResponse> {
         return logStep(`Get cart list`, async () => {
             const shopperId = await this.getShopperId();
             const response = await this.get(`shoppers/${shopperId}/carts`);
-            const responseBody = (await response.json()) as response.CartResponse;
+            const responseBody = (await response.json()) as CartResponse;
             return responseBody;
         });
     }
