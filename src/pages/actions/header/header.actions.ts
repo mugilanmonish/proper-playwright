@@ -21,13 +21,13 @@ export class HeaderActions extends BasePage {
         await this.webActions.hoverAndClick('login button', this.selectors.loginButton);
     }
 
-    async searchForItem(itemName: string): Promise<void> {
-        await logStep(`Searching for item: ${itemName} and validating the search results`, async () => {
-            await this.webActions.fill(itemName, 'search', this.selectors.searchInput);
+    async searchForItem(productName: string): Promise<void> {
+        await logStep(`Searching for item: ${productName} and validating the search results`, async () => {
+            await this.webActions.fill(productName, 'search', this.selectors.searchInput);
             await this.webActions.click('search button', this.selectors.searchButton);
             await this.webAssertions.validateVisibility({
-                selector: this.page.locator('span', { hasText: itemName }),
-                elementName: itemName
+                selector: this.page.locator('span', { hasText: productName }),
+                elementName: productName
             });
         });
     }

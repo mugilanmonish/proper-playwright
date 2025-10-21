@@ -16,7 +16,7 @@ export default defineConfig({
 
     reporter: isCI
         ? [['./src/utils/common/customAllureReporter.ts', { detail: true, outputFolder: 'allure-results' }], ['./src/utils/common/customListReporter.ts']]
-        : [['html', { open: 'never', outputFolder: 'html-report' }]],
+        : [['html', { open: 'never', outputFolder: 'html-report' }], ['./src/utils/common/customListReporter.ts']],
     timeout: 120000, // 2 min
     expect: {
         timeout: 30000

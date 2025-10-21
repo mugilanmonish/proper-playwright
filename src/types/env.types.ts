@@ -1,53 +1,64 @@
-// src/types/env.ts
+export type Product = {
+    productId: number;
+    productName: string;
+    description: string;
+};
+
+export type Admin = {
+    email: string;
+    password: string;
+    firstName?: string;
+    lastName?: string;
+    role: string;
+};
+
+export type Shopper = {
+    email: string;
+    password: string;
+    firstName?: string;
+    lastName?: string;
+    phone?: string;
+    role: string;
+    addresses: Record<string, Address>;
+};
+
+export type Merchant = {
+    email: string;
+    password: string;
+    firstName?: string;
+    lastName?: string;
+    businessName?: string;
+    phone?: string;
+    role: string;
+};
+
+export type Address = {
+    addressId: number;
+    addressType: string;
+    'house/office': string;
+    streetInfo: string;
+    landmark: string;
+    country: string;
+    state: string;
+    city: string;
+    pincode: number;
+    phoneNumber: number;
+};
+
+// main env
 export type EnvConfig = {
     url: string;
     apiUrl: string;
     users: {
-        admins: Record<
-            string,
-            {
-                email: string;
-                password: string;
-                firstName: string;
-                lastName: string;
-                role: string;
-            }
-        >;
-        shoppers: Record<
-            string,
-            {
-                email: string;
-                password: string;
-                firstName: string;
-                lastName: string;
-                phone?: string;
-                role: string;
-            }
-        >;
-        merchants: Record<
-            string,
-            {
-                email: string;
-                password: string;
-                firstName: string;
-                lastName: string;
-                businessName?: string;
-                phone?: string;
-                role: string;
-            }
-        >;
+        admins: Record<string, Admin>;
+        shoppers: Record<string, Shopper>;
+        merchants: Record<string, Merchant>;
     };
-    products: Record<
-        string, // category e.g. "electronics" | "clothing" | "books" | ...
-        Record<
-            string, // product key e.g. "smartphone" | "tshirt" | ...
-            {
-                name: string;
-                brand: string;
-                category: string;
-                subCategory: string;
-                description: string;
-            }
-        >
-    >;
+    products: {
+        men: Product[];
+        women: Product[];
+        kids: Product[];
+        electronics: Product[];
+        beauty: Product[];
+    };
 };

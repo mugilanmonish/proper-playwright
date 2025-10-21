@@ -1,11 +1,10 @@
 import type { Page } from '@playwright/test';
 import { BasePage } from '@basePage/base.page';
 import { logStep } from '@utils/common/stepLevelLog';
-import { LoginSelectors } from '@selectors/login.selectors';
-import type { LoginCredentials, UserType } from 'types/loginPage.types';
-import jsonUtility from '@utils/common/jsonUtility';
-import { HeaderSelector } from '@selectors/header/header.selectors';
 import { HomeSelectors } from '@selectors/home.selector';
+import { LoginSelectors } from '@selectors/login.selectors';
+import type { LoginCredentials } from 'types/loginPage.types';
+import { HeaderSelector } from '@selectors/header/header.selectors';
 
 export class LoginActions extends BasePage {
     private loginSelector: LoginSelectors;
@@ -28,24 +27,10 @@ export class LoginActions extends BasePage {
      * @param credentials - An object containing the login credentials and user role.
      * @returns A promise that resolves when the login process is complete.
      */
-    async loginAs({ userType, userCredential }: { userType: UserType; userCredential: string }): Promise<void> {
-        let user: LoginCredentials;
-        switch (userType) {
-            case 'shopper':
-                user = jsonUtility.getShopperUser(userCredential);
-                break;
-            case 'admin':
-                user = jsonUtility.getAdminUser(userCredential);
-                break;
-            case 'merchant':
-                user = jsonUtility.getMerchantUser(userCredential);
-                break;
-            default:
-                throw new Error(`Unsupported user type: ${userType}`);
-        }
-        const { role } = user;
+    async loginAs(userCredential: LoginCredentials): Promise<void> {
+        const { role } = userCredential;
         await this.webActions.click(role, this.loginSelector.userRoleLoginButton(role));
-        await this.enterCredentials(user);
+        await this.enterCredentials(userCredential);
         await this.webAssertions.validateCount({ selector: this.homeSelector.featuredProductCount, elementName: 'Featured products', expectedCount: 12 });
     }
 
