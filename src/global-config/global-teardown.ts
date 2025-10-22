@@ -27,7 +27,7 @@ export default function globalTeardown(): void {
 
         if (fs.existsSync(generatedHtml)) {
             fs.copyFileSync(generatedHtml, outputHtmlFile);
-            console.log(`report Generated: ${outputHtmlFile}`);
+            process.env.CI ? '' : console.log(`report Generated: ${outputHtmlFile}`);
         } else {
             console.error('❌ index.html not found in temp output.');
         }

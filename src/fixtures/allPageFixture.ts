@@ -1,24 +1,30 @@
 import { test as base } from '@playwright/test';
 import { PageObjectFactory } from '../pages/PageObjectFactory';
+import ApiHelper from '@utils/web-utils/apiHelper';
 
 type Fixtures = {
-    pages: PageObjectFactory;
+    pages: {
+        factory: PageObjectFactory;
+        apiHelper: ApiHelper;
+    };
 };
 
 export const test = base.extend<Fixtures>({
     pages: async ({ browser }, use) => {
         const context = await browser.newContext({
-            viewport: { width: 1920, height: 1080 },
+            viewport: { width: 1280, height: 720 },
             permissions: ['clipboard-read']
-            // storageState: '.storageState.json'
         });
         const page = await context.newPage();
 
+        // instantiate helpers and page object factory
+        const apiHelper = new ApiHelper(page);
         const factory = new PageObjectFactory(page);
+
         try {
-            await use(factory);
+            await use({ factory, apiHelper });
         } catch (error) {
-            console.error('Error during page fixture setup:', error);
+            throw new Error('Error during page fixture setup:' + error);
         } finally {
             await page.close();
             await context.close();

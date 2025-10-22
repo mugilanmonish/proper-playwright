@@ -41,15 +41,6 @@ export default [
         }
     },
     {
-        ignores: [
-            'node_modules/',
-            'dist/',
-            'build/',
-            'coverage/',
-            'vscode/',
-            'playwright-report/',
-            'test-results/',
-            'playwright.config.ts'
-        ]
+        ignores: ['node_modules/', 'dist/', 'build/', 'coverage/', 'vscode/', 'playwright-report/', 'test-results/', 'playwright.config.ts']
     }
 ];

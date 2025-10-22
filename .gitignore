@@ -8,3 +8,6 @@ node_modules/
 report/
 .temp-allure
 /html-report
+playwright/.auth/
+.DS_Store
+.env

@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import 'dotenv/config';
-import type { EnvConfig } from 'types/env.types';
-import type { LoginCredentials } from 'types/loginPage.types';
+import type { Admin, EnvConfig, Merchant, Shopper } from 'types/env.types';
+import type { ProductCategory } from 'types/product.types';
 
 class JsonUtility {
     /**
@@ -67,7 +67,7 @@ class JsonUtility {
      * @throws If the specified admin user is not found in the JSON file
      * @returns Admin user credentials (email, password, role)
      */
-    static getAdminUser(adminName: string): LoginCredentials {
+    static getAdminUser(adminName: string): Admin {
         const adminCred = this.readJsonTestData().users.admins[adminName];
         if (!adminCred) throw new Error(`Admin '${adminName}' not found`);
         return (({ email, password, role }) => ({ email, password, role }))(adminCred);
@@ -79,10 +79,10 @@ class JsonUtility {
      * @throws If the specified shopper user is not found in the JSON file
      * @returns Shopper user credentials (email, password, role)
      */
-    static getShopperUser(shopperName: string): LoginCredentials {
-        const shopperCred = this.readJsonTestData().users.shoppers[shopperName];
-        if (!shopperCred) throw new Error(`Shopper '${shopperName}' not found`);
-        return (({ email, password, role }) => ({ email, password, role }))(shopperCred);
+    static getShopperData(shopperName: string): Shopper {
+        const shopperData = this.readJsonTestData().users.shoppers[shopperName];
+        if (!shopperData) throw new Error(`Shopper '${shopperName}' not found`);
+        return (({ email, password, role, addresses }) => ({ email, password, role, addresses }))(shopperData);
     }
 
     /**
@@ -91,31 +91,24 @@ class JsonUtility {
      * @throws If the specified merchant user is not found in the JSON file
      * @returns Merchant user credentials (email, password, role)
      */
-    static getMerchantUser(merchantName: string): LoginCredentials {
+    static getMerchantUser(merchantName: string): Merchant {
         const merchantCred = this.readJsonTestData().users.merchants[merchantName];
         if (!merchantCred) throw new Error(`Merchant '${merchantName}' not found`);
         return (({ email, password, role }) => ({ email, password, role }))(merchantCred);
     }
 
-    // Write JSON file (overwrites existing content)
-    // static writeJson(filePath, jsonData) {
-    //     try {
-    //         const absolutePath = path.resolve(filePath);
-    //         fs.writeFileSync(absolutePath, JSON.stringify(jsonData, null, 2), 'utf-8');
-    //         console.log('JSON file written successfully.');
-    //     } catch (err) {
-    //         console.error(`Error writing JSON file: ${err.message}`);
-    //     }
-    // }
-
-    // // Update value by key
-    // static updateValue(filePath, key, newValue) {
-    //     const jsonData = this.readJson(filePath);
-    //     if (jsonData) {
-    //         jsonData[key] = newValue;
-    //         this.writeJson(filePath, jsonData);
-    //     }
-    // }
+    /**
+     * This function is used to get the product name by using product id
+     * @param category 'men' | 'kids', 'beauty'..
+     * @param id This is products id
+     * @returns Product name
+     */
+    static getProductById(category: ProductCategory, id: number): string {
+        const items = this.readJsonTestData().products[category];
+        const product = items?.find((item: { productId: number }) => item.productId === id);
+        if (!product) throw new Error(`Product id ${id} is not available`);
+        return product.productName;
+    }
 }
 
 export default JsonUtility;
