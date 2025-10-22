@@ -11,6 +11,10 @@ export class ProductDescriptionActions extends BasePage {
         this.selectors = new ProductDescriptionSelectors(page);
     }
 
+    /**
+     * This function is used to click product tile
+     * @param itemName Product name which is need to click
+     */
     async clickProduct(itemName: string): Promise<void> {
         await logStep(`Click ${itemName} product tile`, async () => {
             await this.webActions.click(`${itemName} tile`, this.selectors.productName(itemName));
@@ -18,6 +22,9 @@ export class ProductDescriptionActions extends BasePage {
         });
     }
 
+    /**
+     * This function is used to click add to cart.
+     */
     async addToCart(): Promise<void> {
         await logStep(`Adding product to cart`, async () => {
             await this.webActions.click('add to cart button', this.selectors.addToCartButton);

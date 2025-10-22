@@ -10,6 +10,9 @@ export class cartActions extends BasePage {
         this.selectors = new CartSelectors(page);
     }
 
+    /**
+     * Click buy now button in cart page.
+     */
     async clickBuyNow(): Promise<void> {
         await this.webActions.click('Buy Now button', this.selectors.buyNowButton);
     }

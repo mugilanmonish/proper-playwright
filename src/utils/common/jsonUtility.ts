@@ -97,6 +97,12 @@ class JsonUtility {
         return (({ email, password, role }) => ({ email, password, role }))(merchantCred);
     }
 
+    /**
+     * This function is used to get the product name by using product id
+     * @param category 'men' | 'kids', 'beauty'..
+     * @param id This is products id
+     * @returns Product name
+     */
     static getProductById(category: ProductCategory, id: number): string {
         const items = this.readJsonTestData().products[category];
         const product = items?.find((item: { productId: number }) => item.productId === id);

@@ -17,7 +17,7 @@ test('Buy a product via Add to cart', async ({ pages }) => {
     await pages.factory.productDescriptionActions.addToCart();
     await pages.factory.headerActions.clickCartIcon();
     await pages.factory.cartActions.clickBuyNow();
-    await pages.factory.addressActions.clickAddress(addressId);
+    await pages.factory.addressActions.selectAddress(addressId);
 });
 
 test.afterEach('Cleanup Cart', async ({ pages }) => {

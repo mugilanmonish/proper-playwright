@@ -14,13 +14,16 @@ export class HeaderActions extends BasePage {
     /**
      * Launches the application and performs a hover and click action on the login button.
      * @returns {Promise<void>} A promise that resolves when the login button has been clicked.
-     * @throws Will throw an error if launching the app or clicking the login button fails.
      */
     async clickLoginButton(): Promise<void> {
         await this.navigateToApplication();
         await this.webActions.hoverAndClick('login button', this.selectors.loginButton);
     }
 
+    /**
+     * This function is used to search product in search bar
+     * @param productName Product name which used to buy
+     */
     async searchForItem(productName: string): Promise<void> {
         await logStep(`Searching for item: ${productName} and validating the search results`, async () => {
             await this.webActions.fill(productName, 'search', this.selectors.searchInput);
@@ -32,10 +35,16 @@ export class HeaderActions extends BasePage {
         });
     }
 
+    /**
+     * This function is used to click shopperstack icon.
+     */
     async clickShoppersStackIcon(): Promise<void> {
         await this.webActions.click('shopperstack icon', this.selectors.shopperstackIcon);
     }
 
+    /**
+     * Click cart icon
+     */
     async clickCartIcon(): Promise<void> {
         await this.webActions.click('cart icon', this.selectors.cartButton);
     }

@@ -10,3 +10,4 @@ report/
 /html-report
 playwright/.auth/
 .DS_Store
+.env
