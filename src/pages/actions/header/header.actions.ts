@@ -48,4 +48,11 @@ export class HeaderActions extends BasePage {
     async clickCartIcon(): Promise<void> {
         await this.webActions.click('cart icon', this.selectors.cartButton);
     }
+
+    /**
+     * Click Account setting icon
+     */
+    async clickMenu(): Promise<void> {
+        await this.webActions.click('menu icon', this.selectors.accountSettingsIcon);
+    }
 }

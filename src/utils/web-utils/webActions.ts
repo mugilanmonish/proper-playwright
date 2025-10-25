@@ -46,11 +46,12 @@ export class WebActions {
     /**
      * Retrieves and trims the text content of the specified Locator element.
      * @param selector - The Playwright Locator representing the element to extract text from.
-     * @returns A promise that resolves to the trimmed text content of the element, or `null` if no text is found.
+     * @returns A promise that resolves to the trimmed text content of the element.
      */
-    async textContent(selector: Locator, time?: number): Promise<string | null> {
-        const text = await selector.textContent({ timeout: time });
-        return text?.trim() ?? null;
+    async textContent(selector: Locator, time?: number): Promise<string> {
+        const text: string | null = await selector.textContent({ timeout: time });
+        if (text === null) throw new Error(`Element Text is not found for this selector ${selector}`);
+        return text.trim();
     }
 
     /**
@@ -61,6 +62,7 @@ export class WebActions {
      */
     async allTextContents(selector: Locator): Promise<string[] | null> {
         const allText = await selector.allTextContents();
+        if (allText === null) throw new Error(`Element Text is not found for this selector ${selector}`);
         return allText;
     }
 

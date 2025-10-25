@@ -2,7 +2,7 @@ import type { Page } from '@playwright/test';
 import { BasePage } from '@basePage/base.page';
 import { CartSelectors } from '@selectors/cart.selectors';
 
-export class cartActions extends BasePage {
+export class CartActions extends BasePage {
     private selectors: CartSelectors;
 
     constructor(protected readonly page: Page) {

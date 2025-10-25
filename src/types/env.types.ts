@@ -34,15 +34,15 @@ export type Merchant = {
 
 export type Address = {
     addressId: number;
-    addressType: string;
-    'house/office': string;
+    type: string;
+    buildingInfo: string;
     streetInfo: string;
     landmark: string;
     country: string;
     state: string;
     city: string;
     pincode: number;
-    phoneNumber: number;
+    phone: number;
 };
 
 // main env

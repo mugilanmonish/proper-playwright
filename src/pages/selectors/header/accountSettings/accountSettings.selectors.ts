@@ -6,5 +6,5 @@ export class AccountSettingsSelectors {
         this.page = page;
     }
 
-    menuItem = (option: AccountSettings): Locator => this.page.locator(option);
+    menuItem = (option: AccountSettings): Locator => this.page.locator(`//ul[@role="menu"]/li[text()='${option}']`);
 }

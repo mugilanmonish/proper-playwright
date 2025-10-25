@@ -22,15 +22,15 @@
                 "addresses": {
                     "blrAddress": {
                         "addressId": 132264,
-                        "addressType": "Home",
-                        "house/office": "WeWork, Singyanapallya",
+                        "type": "Home",
+                        "buildingInfo": "WeWork, Singyanapallya",
                         "streetInfo": "Das Street",
                         "landmark": "Near Metro",
                         "country": "India",
                         "state": "Karnataka",
                         "city": "Bengaluru",
                         "pincode": 560010,
-                        "phoneNumber": 9988776655
+                        "phone": 9988776655
                     }
                 }
             },
