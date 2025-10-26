@@ -15,7 +15,7 @@ export class WebAssertions extends WebActions {
      */
     async validateText(params: WebAssertionsTypes.ValidateTextParams): Promise<void> {
         await logStep(`Validating ${params.elementName} text`, async () => {
-            const text = await params.selector.textContent();
+            const text: string = await this.textContent(params.selector);
             expect(text?.trim(), `${params.elementName} text is not available or incorrect`).toBe(params.expectedValue);
         });
     }
@@ -47,7 +47,7 @@ export class WebAssertions extends WebActions {
      */
     async validatePartialText(params: WebAssertionsTypes.ValidateTextParams): Promise<void> {
         await logStep(`Validating ${params.elementName} text`, async () => {
-            const text = await this.textContent(params.selector);
+            const text: string = await this.textContent(params.selector);
             expect(text?.trim(), `${params.elementName} text is not available or incorrect`).toContain(params.expectedValue);
         });
     }
@@ -64,7 +64,7 @@ export class WebAssertions extends WebActions {
      */
     async validateArray(params: WebAssertionsTypes.ValidateArray): Promise<void> {
         await logStep(`Validating ${params.elementName} list`, async () => {
-            const allText = await this.allTextContents(params.selector);
+            const allText: string[] = await this.allTextContents(params.selector);
             expect(allText, `Validating all text of ${params.elementName} texts`).toEqual(expect.arrayContaining(params.expectedArray));
         });
     }

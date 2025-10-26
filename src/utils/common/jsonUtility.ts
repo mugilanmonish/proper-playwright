@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import 'dotenv/config';
-import type { Admin, EnvConfig, Merchant, Shopper } from 'types/env.types';
+import type { Admin, EnvConfig, Merchant, Product, Shopper } from 'types/env.types';
 import type { ProductCategory } from 'types/product.types';
 
 class JsonUtility {
@@ -21,10 +21,10 @@ class JsonUtility {
      * @throws If ENV is not one of the expected values ('dev', 'qa', 'beta', 'prod')
      */
     static getEnvFile(): string {
-        const env = this.getEnv()?.toLowerCase();
+        const env: string = this.getEnv()?.toLowerCase();
 
         if (!['dev', 'qa', 'beta', 'prod'].includes(env)) throw new Error(`Env is not correct: ${env}`);
-        const envPath = path.resolve(process.cwd(), `src/test-data/${env}.json`);
+        const envPath: string = path.resolve(process.cwd(), `src/test-data/${env}.json`);
         return envPath;
     }
 
@@ -35,8 +35,8 @@ class JsonUtility {
      */
     static readJsonTestData(): EnvConfig {
         try {
-            const absolutePath = this.getEnvFile();
-            const data = fs.readFileSync(absolutePath, 'utf-8');
+            const absolutePath: string = this.getEnvFile();
+            const data: string = fs.readFileSync(absolutePath, 'utf-8');
             return JSON.parse(data);
         } catch (err) {
             throw new Error(`Error reading JSON file: ${err}`);
@@ -68,7 +68,7 @@ class JsonUtility {
      * @returns Admin user credentials (email, password, role)
      */
     static getAdminUser(adminName: string): Admin {
-        const adminCred = this.readJsonTestData().users.admins[adminName];
+        const adminCred: Admin = this.readJsonTestData().users.admins[adminName];
         if (!adminCred) throw new Error(`Admin '${adminName}' not found`);
         return (({ email, password, role }) => ({ email, password, role }))(adminCred);
     }
@@ -80,7 +80,7 @@ class JsonUtility {
      * @returns Shopper user credentials (email, password, role)
      */
     static getShopperData(shopperName: string): Shopper {
-        const shopperData = this.readJsonTestData().users.shoppers[shopperName];
+        const shopperData: Shopper = this.readJsonTestData().users.shoppers[shopperName];
         if (!shopperData) throw new Error(`Shopper '${shopperName}' not found`);
         return (({ email, password, role, addresses }) => ({ email, password, role, addresses }))(shopperData);
     }
@@ -92,9 +92,9 @@ class JsonUtility {
      * @returns Merchant user credentials (email, password, role)
      */
     static getMerchantUser(merchantName: string): Merchant {
-        const merchantCred = this.readJsonTestData().users.merchants[merchantName];
-        if (!merchantCred) throw new Error(`Merchant '${merchantName}' not found`);
-        return (({ email, password, role }) => ({ email, password, role }))(merchantCred);
+        const merchantData: Merchant = this.readJsonTestData().users.merchants[merchantName];
+        if (!merchantData) throw new Error(`Merchant '${merchantName}' not found`);
+        return (({ email, password, role }) => ({ email, password, role }))(merchantData);
     }
 
     /**
@@ -104,8 +104,9 @@ class JsonUtility {
      * @returns Product name
      */
     static getProductById(category: ProductCategory, id: number): string {
-        const items = this.readJsonTestData().products[category];
-        const product = items?.find((item: { productId: number }) => item.productId === id);
+        const items: Product[] = this.readJsonTestData().products[category];
+        if (!items) throw new Error(`Product catogory is not available`);
+        const product: Product | undefined = items?.find((item: { productId: number }) => item.productId === id);
         if (!product) throw new Error(`Product id ${id} is not available`);
         return product.productName;
     }

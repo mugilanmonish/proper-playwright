@@ -1,4 +1,5 @@
 import { test as base } from '@playwright/test';
+import type { BrowserContext, Page, PlaywrightWorkerArgs, TestType } from '@playwright/test';
 import { PageObjectFactory } from '../pages/PageObjectFactory';
 import ApiHelper from '@utils/web-utils/apiHelper';
 
@@ -9,17 +10,17 @@ type Fixtures = {
     };
 };
 
-export const test = base.extend<Fixtures>({
+export const test: TestType<Fixtures, PlaywrightWorkerArgs> = base.extend<Fixtures>({
     pages: async ({ browser }, use) => {
-        const context = await browser.newContext({
+        const context: BrowserContext = await browser.newContext({
             viewport: { width: 1280, height: 720 },
             permissions: ['clipboard-read']
         });
-        const page = await context.newPage();
+        const page: Page = await context.newPage();
 
         // instantiate helpers and page object factory
-        const apiHelper = new ApiHelper(page);
-        const factory = new PageObjectFactory(page);
+        const apiHelper: ApiHelper = new ApiHelper(page);
+        const factory: PageObjectFactory = new PageObjectFactory(page);
 
         try {
             await use({ factory, apiHelper });

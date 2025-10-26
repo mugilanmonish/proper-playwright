@@ -37,7 +37,23 @@ export default [
             '@typescript-eslint/consistent-type-definitions': 'off',
             '@typescript-eslint/prefer-optional-chain': 'error',
             '@typescript-eslint/no-unnecessary-type-assertion': 'warn',
-            '@typescript-eslint/explicit-module-boundary-types': 'warn'
+            '@typescript-eslint/explicit-module-boundary-types': 'warn',
+
+            // ✅ Enforce variable type definitions
+            '@typescript-eslint/no-inferrable-types': 'off',
+            '@typescript-eslint/typedef': [
+                'error',
+                {
+                    arrayDestructuring: false,
+                    arrowParameter: false,
+                    memberVariableDeclaration: true,
+                    objectDestructuring: false,
+                    parameter: true,
+                    propertyDeclaration: true,
+                    variableDeclaration: true,
+                    variableDeclarationIgnoreFunction: true
+                }
+            ]
         }
     },
     {

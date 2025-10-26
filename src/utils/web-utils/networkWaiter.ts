@@ -31,9 +31,9 @@ export class NetworkWaiter {
                     const url: string = res.url();
                     const reqMethod: string = res.request().method();
 
-                    const urlMatches = typeof urlPart === 'string' ? url.includes(urlPart) : urlPart.test(url);
-                    const methodMatches = method ? reqMethod === method : true;
-                    const statusMatches = status ? (Array.isArray(status) ? status.includes(res.status()) : res.status() === status) : true;
+                    const urlMatches: boolean = typeof urlPart === 'string' ? url.includes(urlPart) : urlPart.test(url);
+                    const methodMatches: boolean = method ? reqMethod === method : true;
+                    const statusMatches: boolean = status ? (Array.isArray(status) ? status.includes(res.status()) : res.status() === status) : true;
 
                     return urlMatches && methodMatches && statusMatches;
                 },

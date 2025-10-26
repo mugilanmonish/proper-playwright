@@ -6,14 +6,14 @@ export class PaymentSelectors {
         this.page = page;
     }
 
-    proceedButton = this.page.getByRole('button', { name: 'Proceed' });
-    addCardButton = this.page.getByRole('button', { name: 'Add Card' });
-    cardHolderNameTxtFld = this.page;
-    cardNumberTxtFld = this.page;
-    pinTxtFLd = this.page;
-    expiryMonthTxtFLd = this.page;
-    cvvTxtFld = this.page;
-    addButton = this.page;
+    proceedButton: Locator = this.page.getByRole('button', { name: 'Proceed' });
+    addCardButton: Locator = this.page.getByRole('button', { name: 'Add Card' });
+    cardHolderNameTxtFld: Locator = this.page.locator('[id=":r4:"]');
+    cardNumber: Locator = this.page.locator('[id=":r5:"]');
+    pinTxtFLd: Locator = this.page.locator('[id=":r6:"]');
+    expiryMonthTxtFLd: Locator = this.page.locator('[id=":r7:"]');
+    cvvTxtFld: Locator = this.page.locator('[id=":r8:"]');
+    addButton: Locator = this.page.locator('[id=":r9:"]');
 
     orderIdText: Locator = this.page.locator('//b');
 

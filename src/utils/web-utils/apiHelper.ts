@@ -2,7 +2,7 @@ import { request, expect } from '@playwright/test';
 import type { Page, APIRequestContext, APIResponse } from '@playwright/test';
 import jsonUtility from '@utils/common/jsonUtility';
 import { logStep } from '@utils/common/stepLevelLog';
-import type { ProductResponse, UserData, CartResponse } from 'interfaces/api/response.interface';
+import type { ProductResponse, UserData, CartResponse, Product } from 'interfaces/api/response.interface';
 
 export default class ApiHelper {
     protected page: Page;
@@ -18,8 +18,8 @@ export default class ApiHelper {
     private async ensureInitialized(): Promise<void> {
         await logStep('Initiate api context', async () => {
             if (!this.apiContext) {
-                const apiUrl = jsonUtility.getApiUrl();
-                const token = await this.getBearerToken();
+                const apiUrl: string = jsonUtility.getApiUrl();
+                const token: string = await this.getBearerToken();
 
                 this.apiContext = await request.newContext({
                     baseURL: apiUrl,
@@ -73,7 +73,7 @@ export default class ApiHelper {
      */
     async getProductIdByName(responseBody: ProductResponse, productName: string): Promise<number | null> {
         return logStep(`Get product id by name: ${productName}`, () => {
-            const product = responseBody.data.find((item) => item.productName.toLowerCase() === productName.toLowerCase());
+            const product: Product | undefined = responseBody.data.find((item) => item.productName.toLowerCase() === productName.toLowerCase());
             return product ? product.productId : null;
         });
     }
@@ -92,8 +92,8 @@ export default class ApiHelper {
      */
     async getUserData(): Promise<UserData> {
         return logStep(`Get user data from localStorage`, async () => {
-            const userData = await this.page.evaluate<UserData | null>(() => {
-                const userStr = localStorage.getItem('user');
+            const userData: UserData | null = await this.page.evaluate<UserData | null>(() => {
+                const userStr: string | null = localStorage.getItem('user');
                 if (!userStr) return null;
                 try {
                     return JSON.parse(userStr);
@@ -113,7 +113,7 @@ export default class ApiHelper {
      */
     async getBearerToken(): Promise<string> {
         return logStep(`Get bearer token`, async () => {
-            const userData = await this.getUserData();
+            const userData: UserData = await this.getUserData();
             if (!userData.jwtToken) throw new Error('Bearer token not found in user data');
             return userData.jwtToken;
         });
@@ -124,7 +124,7 @@ export default class ApiHelper {
      */
     async getShopperId(): Promise<number> {
         return logStep(`Get shopper ID`, async () => {
-            const userData = await this.getUserData();
+            const userData: UserData = await this.getUserData();
             if (!userData.userId) throw new Error('Shopper ID not found in user data');
             return userData.userId;
         });
@@ -135,9 +135,9 @@ export default class ApiHelper {
      */
     async getCartList(): Promise<CartResponse> {
         return logStep(`Get cart list`, async () => {
-            const shopperId = await this.getShopperId();
-            const response = await this.get(`shoppers/${shopperId}/carts`);
-            const responseBody = (await response.json()) as CartResponse;
+            const shopperId: number = await this.getShopperId();
+            const response: APIResponse = await this.get(`shoppers/${shopperId}/carts`);
+            const responseBody: CartResponse = (await response.json()) as CartResponse;
             return responseBody;
         });
     }
@@ -147,12 +147,12 @@ export default class ApiHelper {
      */
     async deleteProductFromCart(productName: string): Promise<void> {
         await logStep(`Delete product ${productName} from cart`, async () => {
-            const shopperId = await this.getShopperId();
-            const cartList = await this.getCartList();
+            const shopperId: number = await this.getShopperId();
+            const cartList: CartResponse = await this.getCartList();
 
             if (!cartList.data.length) return;
 
-            const cartId = await this.getProductIdByName(cartList, productName);
+            const cartId: number | null = await this.getProductIdByName(cartList, productName);
             if (cartId) {
                 await this.delete(`/shoppers/${shopperId}/carts/${cartId}`);
             }
@@ -164,12 +164,12 @@ export default class ApiHelper {
      */
     async deleteAllProductFromCart(): Promise<void> {
         await logStep(`Delete all products from cart`, async () => {
-            const shopperId = await this.getShopperId();
-            const cartList = await this.getCartList();
-            const cartIds = await this.getAllProductId(cartList);
+            const shopperId: number = await this.getShopperId();
+            const cartList: CartResponse = await this.getCartList();
+            const cartIds: number[] = await this.getAllProductId(cartList);
 
             for (const id of cartIds) {
-                const response = await this.delete(`shoppers/${shopperId}/carts/${id}`);
+                const response: APIResponse = await this.delete(`shoppers/${shopperId}/carts/${id}`);
                 expect(response.status(), { message: 'Validating delete API status' }).toBe(200);
             }
         });

@@ -22,7 +22,7 @@ export class PaymentActions extends BasePage {
 
     async getOrderId(): Promise<string> {
         return await logStep('Getting order id in order confirmation page', async () => {
-            const orderId = await this.webActions.textContent(this.selectors.orderIdText);
+            const orderId: string = await this.webActions.textContent(this.selectors.orderIdText);
             const match: string[] = orderId.split('#');
             if (match === null) throw new Error('Order id is not available');
             return match[1];

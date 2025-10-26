@@ -1,8 +1,9 @@
 import { test } from '@fixtures/allPageFixture';
 import jsonUtility from '@utils/common/jsonUtility';
+import type { Shopper } from 'types/env.types';
 
 // testdata
-const userData = jsonUtility.getShopperData('mugilanShopper');
+const userData: Shopper = jsonUtility.getShopperData('mugilanShopper');
 const addressId: number = userData.addresses['blrAddress'].addressId;
 const productName: string = jsonUtility.getProductById('kids', 27);
 
@@ -18,7 +19,7 @@ test('Buy a product via Add to cart', async ({ pages }) => {
     await pages.factory.headerActions.clickCartIcon();
     await pages.factory.cartActions.clickBuyNow();
     await pages.factory.addressActions.selectAddress(addressId);
-    const orderId = await pages.factory.paymentActions.codPayment('COD');
+    const orderId: string = await pages.factory.paymentActions.codPayment('COD');
     await pages.factory.headerActions.clickMenu();
     await pages.factory.accountSettingActions.selectMenu('My Orders');
     await pages.factory.myOrdersActions.cancelOrderByOrderId(orderId);

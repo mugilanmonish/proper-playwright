@@ -60,9 +60,9 @@ export class WebActions {
      * @returns A promise that resolves to an array of strings containing the text content of each matched element,
      *          or `null` if no elements are found.
      */
-    async allTextContents(selector: Locator): Promise<string[] | null> {
-        const allText = await selector.allTextContents();
-        if (allText === null) throw new Error(`Element Text is not found for this selector ${selector}`);
+    async allTextContents(selector: Locator): Promise<string[]> {
+        const allText: string[] | null = await selector.allTextContents();
+        if (!allText) throw new Error(`List of Element Text is not found for this selector ${selector}`);
         return allText;
     }
 

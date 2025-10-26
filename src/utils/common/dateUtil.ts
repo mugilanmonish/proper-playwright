@@ -10,12 +10,12 @@
  * @returns {string} The formatted timestamp string.
  */
 export function getFormattedTimestamp(): string {
-    const now = new Date();
+    const now: Date = new Date();
 
-    const day = now.getDate().toString().padStart(2, '0');
-    const month = now.toLocaleString('default', { month: 'long' }); // e.g., July
-    const year = now.getFullYear();
-    const time = now
+    const day: string = now.getDate().toString().padStart(2, '0');
+    const month: string = now.toLocaleString('default', { month: 'long' }); // e.g., July
+    const year: number = now.getFullYear();
+    const time: string = now
         .toLocaleTimeString('en-US', {
             hour: '2-digit',
             minute: '2-digit',

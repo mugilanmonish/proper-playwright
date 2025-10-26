@@ -22,7 +22,7 @@ export class BasePage {
      * @returns {Promise<void>} A promise that resolves when the navigation is complete.
      */
     async navigateToApplication(): Promise<void> {
-        const url = jsonUtility.getAppUrl();
+        const url: string = jsonUtility.getAppUrl();
         await this.webActions.goTo(url);
     }
 }
