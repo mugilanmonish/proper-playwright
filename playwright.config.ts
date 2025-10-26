@@ -11,7 +11,7 @@ export default defineConfig({
     globalTeardown: isCI ? 'src/global-config/global-teardown.ts' : undefined,
     fullyParallel: true,
     forbidOnly: !!isCI,
-    retries: isCI ? 0 : 1,
+    retries: isCI ? 1 : 0,
     workers: isCI ? 1 : 1,
 
     reporter: isCI
