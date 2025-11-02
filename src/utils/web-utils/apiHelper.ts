@@ -3,6 +3,7 @@ import type { Page, APIRequestContext, APIResponse } from '@playwright/test';
 import jsonUtility from '@utils/common/jsonUtility';
 import { logStep } from '@utils/common/stepLevelLog';
 import type { ProductResponse, UserData, CartResponse, Product } from 'interfaces/api/response.interface';
+import type { ORDER_STATUS } from 'types/api.types';
 
 export default class ApiHelper {
     protected page: Page;
@@ -46,6 +47,14 @@ export default class ApiHelper {
     async post(endpoint: string, payload: Record<string, unknown>): Promise<APIResponse> {
         await this.ensureInitialized();
         return logStep(`POST ${endpoint}`, async () => await this.apiContext!.post(endpoint, { data: payload }));
+    }
+
+    /**
+     * Perform a Patch request
+     */
+    async patch(endpoint: string, payload?: Record<string, unknown>): Promise<APIResponse> {
+        await this.ensureInitialized();
+        return logStep(`Patch ${endpoint}`, async () => await this.apiContext!.patch(endpoint, { data: payload }));
     }
 
     /**
@@ -172,6 +181,14 @@ export default class ApiHelper {
                 const response: APIResponse = await this.delete(`shoppers/${shopperId}/carts/${id}`);
                 expect(response.status(), { message: 'Validating delete API status' }).toBe(200);
             }
+        });
+    }
+
+    async changeOrderStatus(status: ORDER_STATUS, orderId: string): Promise<void> {
+        await logStep(`Change order status by ${status}`, async () => {
+            const shopperId: number = await this.getShopperId();
+            const response: APIResponse = await this.patch(`shoppers/${shopperId}/orders/${orderId}?status=${status}`);
+            expect(response.status(), { message: 'Validating patch API status' }).toBe(200);
         });
     }
 }
