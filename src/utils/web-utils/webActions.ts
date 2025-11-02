@@ -90,6 +90,24 @@ export class WebActions {
             await this.click(elementName, selector, time);
         });
     }
+
+    /**
+     * Wait for the given time in seconds
+     * @param timeInSeconds Time in munutes
+     */
+    async waitForTimeout(timeInSeconds: number): Promise<void> {
+        const timeInMilliSeconds: number = timeInSeconds * 1000;
+        await this.page.waitForTimeout(timeInMilliSeconds);
+    }
+
+    /**
+     * Reloads the current page
+     */
+    async reload(): Promise<void> {
+        await logStep(`Reloading page ${this.page.url}`, async () => {
+            await this.page.reload();
+        });
+    }
 }
 
 export default WebActions;

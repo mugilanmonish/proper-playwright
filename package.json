@@ -8,7 +8,9 @@
         "lint:fix": "eslint \"src/**/*.ts\" --fix",
         "format": "prettier --write .",
         "check-format": "prettier --check .",
-        "prepare": "husky"
+        "prepare": "husky",
+        "test:smoke": "npx playwright test --grep @smoke",
+        "test:regression": "npx playwright test --grep @regression"
     },
     "lint-staged": {
         "*.{ts,js}": [
