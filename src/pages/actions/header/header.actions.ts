@@ -17,7 +17,7 @@ export class HeaderActions extends BasePage {
      */
     async clickLoginButton(): Promise<void> {
         await this.navigateToApplication();
-        await this.webActions.hoverAndClick('login button', this.selectors.loginButton, 60000);
+        await this.webActions.hoverAndClick('login button', this.selectors.loginButton, 60);
     }
 
     /**
