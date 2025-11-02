@@ -1,4 +1,5 @@
 import { test } from '@fixtures/allPageFixture';
+import type { TestInfo } from '@playwright/test';
 import jsonUtility from '@utils/common/jsonUtility';
 import type { Shopper } from 'types/env.types';
 
@@ -25,6 +26,8 @@ test('Buy a product with cod and cancel order', { tag: ['@regression', '@cod'] }
     await pages.factory.myOrdersActions.cancelOrderByOrderId(orderId);
 });
 
-test.afterEach('Cleanup Cart', async ({ pages }) => {
-    await pages.apiHelper.deleteAllProductFromCart();
+test.afterEach('Cleanup Cart', async ({ pages }, testInfo: TestInfo) => {
+    if (testInfo.status !== 'passed' && testInfo.status !== 'timedOut') {
+        await pages.apiHelper.deleteAllProductFromCart();
+    }
 });
