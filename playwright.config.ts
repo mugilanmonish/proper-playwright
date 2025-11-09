@@ -37,8 +37,8 @@ export default defineConfig({
 
     projects: [
         {
-            name: 'WEB',
-            use: { ...devices['Desktop Chrome'], channel: 'chrome' }
+            name: 'WEB-chromium',
+            use: { ...devices['Desktop Chromium'], channel: 'chromium' }
         }
     ]
 });

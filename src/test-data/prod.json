@@ -34,13 +34,27 @@
                     }
                 }
             },
-            "shopper2": {
-                "email": "shopper2@example.com",
-                "password": "Shopper456!",
-                "firstName": "David",
-                "lastName": "Smith",
-                "phone": "0987654321",
-                "role": "Shopper Login"
+            "mugiRock": {
+                "email": "mugirock@gmail.com",
+                "password": "Mugilanr@1",
+                "firstName": "Mugi",
+                "lastName": "Rock",
+                "phone": "9988776655",
+                "role": "Shopper Login",
+                "addresses": {
+                    "blrAddress": {
+                        "addressId": 135602,
+                        "type": "Home",
+                        "buildingInfo": "WeWork, Singyanapallya",
+                        "streetInfo": "Das Street",
+                        "landmark": "Near Metro",
+                        "country": "India",
+                        "state": "Karnataka",
+                        "city": "Bengaluru",
+                        "pincode": 560010,
+                        "phone": 9988776655
+                    }
+                }
             },
             "premiumShopper": {
                 "email": "premiumshopper@example.com",
