@@ -1,4 +1,4 @@
-import type { Page } from '@playwright/test';
+import type { Page, Response } from '@playwright/test';
 import { BasePage } from '@basePage/base.page';
 import { logStep } from '@utils/common/stepLevelLog';
 import { ProductDescriptionSelectors } from '@selectors/productDescription.selectors';
@@ -28,7 +28,8 @@ export class ProductDescriptionActions extends BasePage {
     async addToCart(): Promise<void> {
         await logStep(`Adding product to cart`, async () => {
             await this.webActions.click('add to cart button', this.selectors.addToCartButton);
-            await this.networkWaiter.waitForResponse({ urlPart: '/carts', method: 'POST', status: 201 });
+            const resp: Response = await this.networkWaiter.waitForResponse({ urlPart: '/carts', method: 'POST', status: 201 });
+            console.log(JSON.stringify(await resp.json(), null, 2));
             await this.webAssertions.validateVisibility({ selector: this.selectors.addedText, elementName: 'Added text' });
         });
     }
