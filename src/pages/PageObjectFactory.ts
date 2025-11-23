@@ -26,7 +26,7 @@ export class PageObjectFactory {
     private _addressActions?: AddressActions;
     private _cartActions?: CartActions;
     private _paymentActions?: PaymentActions;
-    private __myOrdersActions?: MyOrdersActions;
+    private _myOrdersActions?: MyOrdersActions;
 
     constructor(private readonly page: Page) {
         this.page = page;
@@ -74,6 +74,6 @@ export class PageObjectFactory {
     }
 
     get myOrdersActions(): MyOrdersActions {
-        return (this.__myOrdersActions ??= new MyOrdersActions(this.page));
+        return (this._myOrdersActions ??= new MyOrdersActions(this.page));
     }
 }

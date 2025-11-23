@@ -24,8 +24,9 @@ export class WebActions {
      * @param selector - The Playwright Locator representing the element to click.
      * @returns A promise that resolves when the click action is complete.
      */
-    async click(elementName: string, selector: Locator, time?: number): Promise<void> {
+    async click(elementName: string, selector: Locator, timeInSeconds?: number): Promise<void> {
         await logStep(`Clicked on ${elementName}`, async () => {
+            const time: number | undefined = timeInSeconds ? timeInSeconds * 1000 : undefined;
             await selector.click({ timeout: time });
         });
     }
@@ -37,8 +38,9 @@ export class WebActions {
      * @param selector - The Playwright Locator representing the text field to fill.
      * @returns A promise that resolves when the fill action is complete.
      */
-    async fill(value: string, elementName: string, selector: Locator, time?: number): Promise<void> {
+    async fill(value: string, elementName: string, selector: Locator, timeInSeconds?: number): Promise<void> {
         await logStep(`Entered ${value} in ${elementName} text field`, async () => {
+            const time: number | undefined = timeInSeconds ? timeInSeconds * 1000 : undefined;
             await selector.fill(value, { timeout: time });
         });
     }
@@ -48,7 +50,8 @@ export class WebActions {
      * @param selector - The Playwright Locator representing the element to extract text from.
      * @returns A promise that resolves to the trimmed text content of the element.
      */
-    async textContent(selector: Locator, time?: number): Promise<string> {
+    async textContent(selector: Locator, timeInSeconds?: number): Promise<string> {
+        const time: number | undefined = timeInSeconds ? timeInSeconds * 1000 : undefined;
         const text: string | null = await selector.textContent({ timeout: time });
         if (text === null) throw new Error(`Element Text is not found for this selector ${selector}`);
         return text.trim();
@@ -72,8 +75,9 @@ export class WebActions {
      * @param selector - The Playwright Locator representing the element to hover over.
      * @returns A promise that resolves when the hover action is complete.
      */
-    async hover(elementName: string, selector: Locator, time?: number): Promise<void> {
+    async hover(elementName: string, selector: Locator, timeInSeconds?: number): Promise<void> {
         await logStep(`Hover on ${elementName}`, async () => {
+            const time: number | undefined = timeInSeconds ? timeInSeconds * 1000 : undefined;
             await selector.hover({ timeout: time });
         });
     }
@@ -84,10 +88,29 @@ export class WebActions {
      * @param selector - The Playwright Locator representing the target element.
      * @returns A promise that resolves when the hover and click actions are completed.
      */
-    async hoverAndClick(elementName: string, selector: Locator, time?: number): Promise<void> {
+    async hoverAndClick(elementName: string, selector: Locator, timeInSeconds?: number): Promise<void> {
         await logStep(`Hover and Click on ${elementName}`, async () => {
+            const time: number | undefined = timeInSeconds ? timeInSeconds * 1000 : undefined;
             await this.hover(elementName, selector, time);
             await this.click(elementName, selector, time);
+        });
+    }
+
+    /**
+     * Wait for the given time in seconds
+     * @param timeInSeconds Time in munutes
+     */
+    async waitForTimeout(timeInSeconds: number): Promise<void> {
+        const timeInMilliSeconds: number = timeInSeconds * 1000;
+        await this.page.waitForTimeout(timeInMilliSeconds);
+    }
+
+    /**
+     * Reloads the current page
+     */
+    async reload(): Promise<void> {
+        await logStep(`Reloading page ${this.page.url}`, async () => {
+            await this.page.reload();
         });
     }
 }

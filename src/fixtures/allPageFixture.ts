@@ -13,9 +13,9 @@ type Fixtures = {
 export const test: TestType<Fixtures, PlaywrightWorkerArgs> = base.extend<Fixtures>({
     pages: async ({ browser }, use) => {
         const context: BrowserContext = await browser.newContext({
-            viewport: { width: 1280, height: 720 },
-            permissions: ['clipboard-read']
+            viewport: { width: 1280, height: 720 }
         });
+        // const context: BrowserContext = await browser.newContext();
         const page: Page = await context.newPage();
 
         // instantiate helpers and page object factory
@@ -28,7 +28,6 @@ export const test: TestType<Fixtures, PlaywrightWorkerArgs> = base.extend<Fixtur
             throw new Error('Error during page fixture setup:' + error);
         } finally {
             await page.close();
-            await context.close();
         }
     }
 });

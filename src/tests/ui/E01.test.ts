@@ -12,7 +12,7 @@ test.beforeEach('Login to app', async ({ pages }) => {
     await pages.factory.loginActions.loginAs(userData);
 });
 
-test('Buy a product via Add to cart', async ({ pages }) => {
+test('Buy a product with cod', { tag: ['@smoke', '@regression', '@cod'] }, async ({ pages }) => {
     await pages.factory.headerActions.searchForItem(productName);
     await pages.factory.productDescriptionActions.clickProduct(productName);
     await pages.factory.productDescriptionActions.addToCart();
@@ -20,9 +20,10 @@ test('Buy a product via Add to cart', async ({ pages }) => {
     await pages.factory.cartActions.clickBuyNow();
     await pages.factory.addressActions.selectAddress(addressId);
     const orderId: string = await pages.factory.paymentActions.codPayment('COD');
+    await pages.apiHelper.changeOrderStatus('DELIVERED', orderId);
     await pages.factory.headerActions.clickMenu();
     await pages.factory.accountSettingActions.selectMenu('My Orders');
-    await pages.factory.myOrdersActions.cancelOrderByOrderId(orderId);
+    await pages.factory.myOrdersActions.validateOrderStatus('DELIVERED', orderId);
 });
 
 test.afterEach('Cleanup Cart', async ({ pages }) => {
