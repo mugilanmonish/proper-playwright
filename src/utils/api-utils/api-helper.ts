@@ -32,7 +32,7 @@ export default class ApiHelper {
         }
 
         const responseJson: AuthData = await response.json();
-        const responseBody: UserData = responseJson.data;
+        const responseBody: UserData = responseJson.userData;
         const token: string = responseBody.jwtToken;
 
         if (!token) {

@@ -22,7 +22,7 @@ export const test: TestType<ApiFixtures, PlaywrightWorkerArgs> = base.extend<Api
         const tokenFile: string = join(__dirname, '../../.auth/api-token.json');
         if (existsSync(tokenFile)) {
             const authData: AuthData = JSON.parse(readFileSync(tokenFile, 'utf-8') as string);
-            await apiHelper.initializeWithToken(authData.data.jwtToken);
+            await apiHelper.initializeWithToken(authData.userData.jwtToken);
         } else {
             console.log('⚠ No stored token found, use apiHelper.login() manually');
         }

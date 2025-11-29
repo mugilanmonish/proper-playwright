@@ -27,7 +27,7 @@ export interface UserData {
  * Represents the response structure for login api
  */
 export interface AuthData {
-    data: UserData;
+    userData: UserData;
     timestamp: string;
 }
 
