@@ -24,6 +24,14 @@ export interface UserData {
 }
 
 /**
+ * Represents the response structure for login api
+ */
+export interface AuthData {
+    data: UserData;
+    timestamp: string;
+}
+
+/**
  * Represents a cart response
  */
 export interface CartResponse {
