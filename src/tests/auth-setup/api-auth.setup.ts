@@ -82,8 +82,8 @@ setup('API authentication', async () => {
         throw new Error(`Login failed with status ${response.status()}: ${await response.text()}`);
     }
 
-    const responseJson: AuthData = await response.json();
-    const responseBody: UserData = responseJson.userData;
+    const responseJson = await response.json();
+    const responseBody: UserData = responseJson.data;
     const token: string = responseBody.jwtToken;
 
     if (!token) {
