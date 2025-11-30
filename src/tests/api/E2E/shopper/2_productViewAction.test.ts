@@ -6,8 +6,8 @@ test('Shopper can view all products', async ({ apiHelper }) => {
     expect(response.ok(), { message: 'Response should be OK' }).toBeTruthy();
     expect(response.status(), { message: 'Response status should be 200' }).toBe(200);
 
-    const products: unknown = await response.json();
-    expect(products, { message: 'Products should be defined' }).toBeDefined();
+    const products: { data: [] } = await response.json();
+    expect(products.data, { message: 'Products should be defined' }).toBeDefined();
 });
 
 test('Shopper can view all default products', async ({ apiHelper }) => {
@@ -15,6 +15,6 @@ test('Shopper can view all default products', async ({ apiHelper }) => {
     expect(response.ok(), { message: 'Response should be OK' }).toBeTruthy();
     expect(response.status(), { message: 'Response status should be 200' }).toBe(200);
 
-    const products: unknown = await response.json();
-    expect(products, { message: 'Products should be defined' }).toBeDefined();
+    const products: { data: [] } = await response.json();
+    expect(products.data, { message: 'Products should be defined' }).toBeDefined();
 });

@@ -10,7 +10,8 @@
         "check-format": "prettier --check .",
         "prepare": "husky",
         "test:smoke": "npx playwright test --grep @smoke",
-        "test:regression": "npx playwright test --grep @regression"
+        "test:regression": "npx playwright test --grep @regression",
+        "test:api:shopper:e2e": "npx playwright test --config=playwright-api.config.ts src/tests/api/e2e/shopper/*.test.ts"
     },
     "lint-staged": {
         "*.{ts,js}": [
