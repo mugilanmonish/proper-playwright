@@ -1,7 +1,7 @@
 import WebActions from './webActions';
 import { expect } from '@playwright/test';
 import { logStep } from '@utils/common/stepLevelLog';
-import type * as WebAssertionsTypes from 'interfaces/webAssertions.interface';
+import type * as WebAssertionsTypes from 'interfaces/ui/webAssertions.interface';
 
 export class WebAssertions extends WebActions {
     /**
