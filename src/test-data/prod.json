@@ -40,7 +40,7 @@
                 "firstName": "Mugi",
                 "lastName": "Rock",
                 "phone": "9988776655",
-                "role": "Shopper Login",
+                "role": "SHOPPER",
                 "addresses": {
                     "blrAddress": {
                         "addressId": 135602,

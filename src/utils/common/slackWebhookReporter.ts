@@ -72,7 +72,7 @@ export default class SlackWebhookReporter implements Reporter {
         const runMs: number = Date.now() - this.startTime;
         const runSec: string = (runMs / 1000).toFixed(1);
 
-        const header: string = `*ShopperStack Web*: ${statusText}`;
+        const header: string = `*ShopperStack ${this.config?.projects[0].name}*: ${statusText}`;
         const counts: string = `Tests: ${this.total} • Passed: ${this.passed} • Failed: ${this.failed}`;
         const meta: string = [
             GIT_BRANCH ? `• Branch: \`${GIT_BRANCH}\`\n` : null,
