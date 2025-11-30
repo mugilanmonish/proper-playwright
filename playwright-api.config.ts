@@ -1,20 +1,26 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig } from '@playwright/test';
+import * as dotenv from 'dotenv';
+
+dotenv.config({ quiet: true });
+const isCI: boolean = process.env.CI === 'true';
 
 export default defineConfig({
     testDir: 'src/tests',
 
-    globalSetup: 'src/global-config/global-setup.ts',
-    globalTeardown: 'src/global-config/global-teardown.ts',
+    globalSetup: isCI ? 'src/global-config/global-setup.ts' : undefined,
+    globalTeardown: isCI ? 'src/global-config/global-teardown.ts' : undefined,
     fullyParallel: true,
-    forbidOnly: !!process.env.CI,
-    retries: process.env.CI ? 2 : 0,
-    workers: process.env.CI ? 1 : 1,
+    forbidOnly: !!isCI,
+    retries: isCI ? 0 : 0,
+    workers: isCI ? 1 : 1,
 
-    reporter: [
-        ['./src/utils/common/customAllureRepoter.ts', { detail: true, outputFolder: 'allure-results' }],
-        ['html', { open: 'never', outputFolder: 'html-report' }],
-        ['list']
-    ],
+    reporter: isCI
+        ? [
+              ['./src/utils/common/customAllureReporter.ts', { detail: true, outputFolder: 'allure-results' }],
+              ['./src/utils/common/customListReporter.ts'],
+              ['./src/utils/common/slackWebhookReporter.ts']
+          ]
+        : [['html', { open: 'never', outputFolder: 'html-report' }], ['./src/utils/common/customListReporter.ts']],
     timeout: 60000, // 2 min
     expect: {
         timeout: 30000
@@ -22,17 +28,14 @@ export default defineConfig({
 
     use: {
         ignoreHTTPSErrors: true,
-        viewport: { width: 1920, height: 1080 },
-        screenshot: 'only-on-failure',
-        trace: 'retain-on-failure',
-        headless: false
+        trace: 'retain-on-failure'
     },
 
     projects: [
-        { name: 'setup', testMatch: /.*\.setup\.ts/ },
         {
-            name: 'UI',
-            use: { ...devices['Desktop Chrome'], storageState: 'playwright/.auth/user.json', channel: 'chrome' }
-        }
+            name: 'API',
+            dependencies: ['setup']
+        },
+        { name: 'setup', testMatch: /.*\.setup\.ts/ }
     ]
 });

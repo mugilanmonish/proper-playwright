@@ -2,10 +2,10 @@ import * as dotenv from 'dotenv';
 import { defineConfig, devices } from '@playwright/test';
 
 dotenv.config({ quiet: true });
-const isCI = process.env.CI === 'true';
+const isCI: boolean = process.env.CI === 'true';
 
 export default defineConfig({
-    testDir: 'src/tests',
+    testDir: 'src/tests/ui',
 
     globalSetup: isCI ? 'src/global-config/global-setup.ts' : undefined,
     globalTeardown: isCI ? 'src/global-config/global-teardown.ts' : undefined,
