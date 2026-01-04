@@ -17,7 +17,7 @@ export class ProductDescriptionActions extends BasePage {
      */
     async clickProduct(itemName: string): Promise<void> {
         await logStep(`Click ${itemName} product tile`, async () => {
-            await this.webActions.click(`${itemName} tile`, this.selectors.productName(itemName));
+            await this.webActions.click(`${itemName} tile`, this.selectors.productName(itemName).nth(0));
             await this.networkWaiter.waitForResponse({ urlPart: 'shopping/products', method: 'GET', status: 200 });
         });
     }

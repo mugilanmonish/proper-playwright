@@ -5,7 +5,7 @@ import type { Shopper } from 'types/env.types';
 // testdata
 const userData: Shopper = jsonUtility.getShopperData('mugiRock');
 const addressId: number = userData.addresses['blrAddress'].addressId;
-const productName: string = jsonUtility.getProductById('kids', 27);
+const productName: string = jsonUtility.getProductById('kids', 46);
 
 test.beforeEach('Login to app', async ({ pages }) => {
     await pages.factory.headerActions.clickLoginButton();

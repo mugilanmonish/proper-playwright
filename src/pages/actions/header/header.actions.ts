@@ -29,7 +29,7 @@ export class HeaderActions extends BasePage {
             await this.webActions.fill(productName, 'search', this.selectors.searchInput);
             await this.webActions.click('search button', this.selectors.searchButton);
             await this.webAssertions.validateVisibility({
-                selector: this.page.locator('span', { hasText: productName }),
+                selector: this.page.locator('span', { hasText: productName }).nth(0),
                 elementName: productName
             });
         });
